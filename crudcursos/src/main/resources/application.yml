@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ms-profesores-service.yml
+    name: ms-curso-service
   profiles:
     active: development
   config:
