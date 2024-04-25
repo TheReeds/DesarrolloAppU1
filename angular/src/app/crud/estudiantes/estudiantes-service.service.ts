@@ -7,7 +7,7 @@ import { Estudiante } from './estudiante.model';
   providedIn: 'root'
 })
 export class EstudiantesServiceService {
-  private apiUrl = 'http://localhost:8081/alumno';
+  private apiUrl = 'http://localhost:8085/alumno';
 
   constructor(private http: HttpClient) { }
   obtenerEstudiantes(): Observable<Estudiante[]> {
