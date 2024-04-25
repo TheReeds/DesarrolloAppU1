@@ -2,7 +2,7 @@ package com.example.crudprofesores.service.Impl;
 
 import com.example.crudprofesores.dto.CursoDto;
 import com.example.crudprofesores.entity.Profesores;
-import com.example.mspedido.feign.CursoFeign
+import com.example.crudprofesores.feign.CursoFeign;
 import com.example.crudprofesores.repository.ProfesoresRepository;
 import com.example.crudprofesores.service.ProfesoresService;
 import org.springframework.beans.factory.annotation.Autowired;

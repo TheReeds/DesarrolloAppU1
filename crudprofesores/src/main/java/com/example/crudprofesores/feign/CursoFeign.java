@@ -1,4 +1,4 @@
-package com.example.mspedido.feign;
+package com.example.crudprofesores.feign;
 
 import com.example.crudprofesores.dto.CursoDto;
 import org.springframework.cloud.openfeign.FeignClient;
