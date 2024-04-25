@@ -15,6 +15,7 @@
             <th scope="col" class="px-6 py-3">DNI</th>
             <th scope="col" class="px-6 py-3">Especialidad</th>
             <th scope="col" class="px-6 py-3">Teléfono</th>
+            <th scope="col" class="px-6 py-3">Curso</th>
             <th scope="col" class="px-6 py-3">Acciones</th>
           </tr>
         </thead>
@@ -25,6 +26,7 @@
             <td class="px-6 py-4 text-black">{{ profesor.dni }}</td>
             <td class="px-6 py-4 text-black">{{ profesor.especialidad }}</td>
             <td class="px-6 py-4 text-black">{{ profesor.telefono }}</td>
+            <td class="px-6 py-4 text-black">{{ profesor.cursoDto.nombre }}</td>
             <td class="px-6 py-4 flex space-x-2">
               <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                 Editar
