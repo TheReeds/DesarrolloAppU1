@@ -18,6 +18,6 @@ spring:
           enable: true
       routes:
         - id: ms-curso-service
-          uri: lb://ms-curso-serivce
+          uri: lb://ms-curso-service
           predicates:
             - Path=/alumno/**
