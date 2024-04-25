@@ -31,9 +31,9 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public Curso buscarPorId(Integer id) {
-        Optional<Curso> profesorOptional = cursoRepository.findById(id);
-        if (profesorOptional.isPresent()) {
-            Curso curso = profesorOptional.get();
+        Optional<Curso> cursoOptional = cursoRepository.findById(id);
+        if (cursoOptional.isPresent()) {
+            Curso curso = cursoOptional.get();
             // Obtener información del curso asociado al profesor utilizando Feign
             try {
                 ProfesoresDto profesorDto = profesoresFeign.listById(curso.getId()).getBody();
