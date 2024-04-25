@@ -14,7 +14,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProfesoresComponent implements OnInit {
   profesores: Profesor[] = [];
-  nuevoProfesor: Profesor = { id: 0, nombre: '', dni: '', especialidad: '', telefono: '' };
+  nuevoProfesor: Profesor = {
+    id: 0,
+    nombre: '',
+    dni: '',
+    especialidad: '',
+    telefono: '',
+    cursoDto: { id: 0, nombre: '', descripcion: '', duracion: '' } // Inicialización de cursoDto
+  };
   showForm: boolean = false;
 
   constructor(private profesoresService: ProfesoresService) { }
@@ -32,13 +39,13 @@ export class ProfesoresComponent implements OnInit {
     this.profesoresService.crearProfesor(this.nuevoProfesor)
       .subscribe(() => {
         this.obtenerProfesores();
-        this.nuevoProfesor = { id: 0, nombre: '', dni: '', especialidad: '', telefono: '' };
+        //this.nuevoProfesor = { id: 0, nombre: '', dni: '', especialidad: '', telefono: '' };
         this.showForm = false;
       });
   }
 
   cancelarCrear(): void {
-    this.nuevoProfesor = { id: 0, nombre: '', dni: '', especialidad: '', telefono: '' };
+    //this.nuevoProfesor = { id: 0, nombre: '', dni: '', especialidad: '', telefono: '' };
     this.showForm = false;
   }
 
