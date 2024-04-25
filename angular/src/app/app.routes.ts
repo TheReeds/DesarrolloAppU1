@@ -6,9 +6,11 @@ import { CursosComponent } from './crud/cursos/cursos.component';
 import { EstudiantesComponent } from './crud/estudiantes/estudiantes.component';
 import { ProfesoresComponent } from './crud/profesores/profesores.component';
 import { InicioComponent } from './crud/inicio/inicio.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
   { path: 'casa', component: AlumnosComponent, canActivate: [authGuard]},
   { path: 'cursos', component: CursosComponent, canActivate: [authGuard]},
   { path: 'estudiantes', component: EstudiantesComponent, canActivate: [authGuard]},

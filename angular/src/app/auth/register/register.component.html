@@ -1,0 +1,31 @@
+<!-- register.component.html -->
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-cover bg-center h-56 p-4" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnYJbHR2Vp7us5Jc-JKmAPN4FEHyBOuYCvdA&s')">
+    </div>
+    <div class="p-4">
+      <h2 class="text-md font-normal mb-2">Crea una cuenta en el sistema de gestión académica</h2>
+      <form action="#" method="POST">
+        <div class="mb-4">
+          <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Correo</label>
+          <input id="email" name="email" type="email" autocomplete="email" required
+                 class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight
+                        focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-gray-700 text-sm font-bold mb-2">contraseña</label>
+          <input id="password" name="password" type="password" autocomplete="new-password" required
+                 class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight
+                        focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="flex items-center justify-between">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4
+                                         rounded focus:outline-none focus:shadow-outline">
+            Registrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
