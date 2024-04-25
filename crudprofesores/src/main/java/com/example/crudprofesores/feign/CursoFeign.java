@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name ="ms-curso-service",path = "/cursos")
 public interface CursoFeign {
-    @GetMapping("/{id}")
-    ResponseEntity<CursoDto> buscarPorId(@PathVariable(required = true) Integer id);
+        @GetMapping("/{id}")
+        ResponseEntity<CursoDto> buscarPorId(@PathVariable(required = true) Integer id);
+
 }

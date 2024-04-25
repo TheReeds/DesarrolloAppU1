@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfesoresServiceImpl implements ProfesoresService {
@@ -20,9 +21,13 @@ public class ProfesoresServiceImpl implements ProfesoresService {
     @Autowired
     private CursoFeign cursoFeign;
 
+
     @Override
-    public List<Profesores> listar(){
-        return profesoresRepository.findAll();
+    public List<Profesores> listar() {
+        List<Profesores> profesores = profesoresRepository.findAll();
+        return profesores.stream()
+                .map(this::agregarInformacionCurso)
+                .collect(Collectors.toList());
     }
     @Override
     public Profesores guardar(Profesores profesores) {
@@ -38,6 +43,7 @@ public class ProfesoresServiceImpl implements ProfesoresService {
             try {
                 CursoDto cursoDto = cursoFeign.buscarPorId(profesor.getId()).getBody();
                 if (cursoDto != null) {
+                    // Almacenar temporalmente los datos del curso en cursoDto
                     profesor.setCursoDto(cursoDto);
                 }
             } catch (Exception e) {
@@ -46,6 +52,17 @@ public class ProfesoresServiceImpl implements ProfesoresService {
             return profesor;
         }
         return null;
+    }
+    private Profesores agregarInformacionCurso(Profesores profesor) {
+        try {
+            CursoDto cursoDto = cursoFeign.buscarPorId(profesor.getId()).getBody();
+            if (cursoDto != null) {
+                profesor.setCursoDto(cursoDto);
+            }
+        } catch (Exception e) {
+            // Manejar el caso en el que no se pueda obtener la información del curso
+        }
+        return profesor;
     }
 
     @Override

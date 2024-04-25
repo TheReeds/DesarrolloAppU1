@@ -3,6 +3,7 @@ package com.example.crudprofesores;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpMethod;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.http.HttpHeaders;
 
 @SpringBootApplication
+@EnableFeignClients
 public class 	CrudprofesoresApplication {
 
 	public static void main(String[] args) {
