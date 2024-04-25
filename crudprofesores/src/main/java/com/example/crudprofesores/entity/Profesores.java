@@ -1,9 +1,7 @@
 package com.example.crudprofesores.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.crudprofesores.dto.CursoDto;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -16,5 +14,6 @@ public class Profesores {
     private String dni;
     private String especialidad;
     private String telefono;
-
+    @Transient
+    private CursoDto cursoDto;
 }

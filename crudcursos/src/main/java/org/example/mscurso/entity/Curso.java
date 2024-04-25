@@ -11,13 +11,13 @@ import java.util.ArrayList;
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String nombre;
 
     private String descripcion;
 
-    private int duracion;
+    private String duracion;
 
 }
 
