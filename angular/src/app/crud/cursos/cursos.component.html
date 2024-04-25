@@ -4,7 +4,7 @@
     <div class="px-6 py-4 bg-gray-100 text-white flex justify-between items-center">
       <h2 class="text-xl font-bold text-black">Cursos</h2>
       <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-        Nuevo Curso
+        Nuevo curso
       </button>
     </div>
     <div class="px-6 py-4">
@@ -13,19 +13,16 @@
           <tr>
             <th scope="col" class="px-6 py-3">Nombre</th>
             <th scope="col" class="px-6 py-3">Descripción</th>
-            <th scope="col" class="px-6 py-3">Profesor</th>
+            <th scope="col" class="px-6 py-3">Duración</th>
             <th scope="col" class="px-6 py-3">Acciones</th>
           </tr>
         </thead>
-        <tbody >
-          <tr class="border-b bg-gray-100 border-gray-700 hover:bg-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-black whitespace-nowrap">
-              Curso de Angular
-            </th>
-            <td class="px-6 py-4 text-black">
-              Aprende a desarrollar aplicaciones web modernas con Angular
-            </td>
-            <td class="px-6 py-4 text-black">Juan Pérez</td>
+        <tbody>
+          <!-- Iterar sobre los estudiantes -->
+          <tr *ngFor="let curso of cursos" class="border-b bg-gray-100 border-gray-700 hover:bg-gray-700">
+            <td class="px-6 py-4 font-medium text-black whitespace-nowrap">{{ curso.nombre }}</td>
+            <td class="px-6 py-4 text-black">{{ curso.descripcion }}</td>
+            <td class="px-6 py-4 text-black">{{ curso.duracion }}</td>
             <td class="px-6 py-4 flex space-x-2">
               <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                 Editar
@@ -35,7 +32,7 @@
               </button>
             </td>
           </tr>
-          <!-- Agrega más filas de cursos aquí -->
+          <!-- Fin de la iteración -->
         </tbody>
       </table>
     </div>

@@ -3,8 +3,8 @@
   <div class="bg-gray-300 rounded-lg overflow-hidden shadow-md">
     <div class="px-6 py-4 bg-gray-100 text-white flex justify-between items-center">
       <h2 class="text-xl font-bold text-black">Profesores</h2>
-      <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-        Nuevo Profesor
+      <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" (click)="mostrarFormulario()">
+        Nuevo profesor
       </button>
     </div>
     <div class="px-6 py-4">
@@ -12,20 +12,19 @@
         <thead class="text-xs uppercase bg-gray-700 text-gray-300">
           <tr>
             <th scope="col" class="px-6 py-3">Nombre</th>
-            <th scope="col" class="px-6 py-3">Descripción</th>
-            <th scope="col" class="px-6 py-3">Profesor</th>
+            <th scope="col" class="px-6 py-3">DNI</th>
+            <th scope="col" class="px-6 py-3">Especialidad</th>
+            <th scope="col" class="px-6 py-3">Teléfono</th>
             <th scope="col" class="px-6 py-3">Acciones</th>
           </tr>
         </thead>
-        <tbody >
-          <tr class="border-b bg-gray-100 border-gray-700 hover:bg-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-black whitespace-nowrap">
-              Curso de Angular
-            </th>
-            <td class="px-6 py-4 text-black">
-              Aprende a desarrollar aplicaciones web modernas con Angular
-            </td>
-            <td class="px-6 py-4 text-black">Juan Pérez</td>
+        <tbody>
+          <!-- Iterar sobre los profesores -->
+          <tr *ngFor="let profesor of profesores" class="border-b bg-gray-100 border-gray-700 hover:bg-gray-700">
+            <td class="px-6 py-4 font-medium text-black whitespace-nowrap">{{ profesor.nombre }}</td>
+            <td class="px-6 py-4 text-black">{{ profesor.dni }}</td>
+            <td class="px-6 py-4 text-black">{{ profesor.especialidad }}</td>
+            <td class="px-6 py-4 text-black">{{ profesor.telefono }}</td>
             <td class="px-6 py-4 flex space-x-2">
               <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                 Editar
@@ -35,9 +34,42 @@
               </button>
             </td>
           </tr>
-          <!-- Agrega más filas de cursos aquí -->
+          <!-- Fin de la iteración -->
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<!-- Agrega este código dentro del div "bg-gray-300 rounded-lg overflow-hidden shadow-md" -->
+<div *ngIf="showForm" class="overlay">
+  <div class="formulario">
+    <div class="px-6 py-4 bg-gray-100">
+      <h2 class="text-xl font-bold text-black mb-4">Crear Nuevo Profesor</h2>
+      <form (ngSubmit)="crearProfesor()" #profesorForm="ngForm">
+        <div class="mb-4">
+          <label for="nombre" class="block text-gray-700 font-bold mb-2">Nombre</label>
+          <input type="text" id="nombre" name="nombre" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="nuevoProfesor.nombre" required>
+        </div>
+        <div class="mb-4">
+          <label for="dni" class="block text-gray-700 font-bold mb-2">DNI</label>
+          <input type="text" id="dni" name="dni" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="nuevoProfesor.dni" required>
+        </div>
+        <div class="mb-4">
+          <label for="especialidad" class="block text-gray-700 font-bold mb-2">Especialidad</label>
+          <input type="text" id="especialidad" name="especialidad" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="nuevoProfesor.especialidad" required>
+        </div>
+        <div class="mb-4">
+          <label for="telefono" class="block text-gray-700 font-bold mb-2">Teléfono</label>
+          <input type="text" id="telefono" name="telefono" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" [(ngModel)]="nuevoProfesor.telefono" required>
+        </div>
+        <div class="flex justify-end">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2">Crear</button>
+          <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" (click)="cancelarCrear()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
