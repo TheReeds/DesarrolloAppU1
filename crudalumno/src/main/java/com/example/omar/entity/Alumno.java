@@ -13,8 +13,7 @@ public class Alumno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
-    private String appPaterno;
-    private String appMaterno;
-    private String numCelular;
+    private String apellidos;
+    private String telefono;
     private String grado;
 }

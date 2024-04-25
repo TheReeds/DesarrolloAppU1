@@ -1,0 +1,42 @@
+<app-alumnos></app-alumnos>
+<div class="container mx-auto py-8">
+  <div class="bg-gray-300 rounded-lg overflow-hidden shadow-md">
+    <div class="px-6 py-4 bg-gray-100 text-white flex justify-between items-center">
+      <h2 class="text-xl font-bold text-black">Estudiantes</h2>
+      <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+        Registrar estudiante
+      </button>
+    </div>
+    <div class="px-6 py-4">
+      <table class="w-full text-sm text-left text-gray-200">
+        <thead class="text-xs uppercase bg-gray-700 text-gray-300">
+          <tr>
+            <th scope="col" class="px-6 py-3">Nombre</th>
+            <th scope="col" class="px-6 py-3">Apellidos</th>
+            <th scope="col" class="px-6 py-3">Teléfono</th>
+            <th scope="col" class="px-6 py-3">Grado</th>
+            <th scope="col" class="px-6 py-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Iterar sobre los estudiantes -->
+          <tr *ngFor="let estudiante of estudiantes" class="border-b bg-gray-100 border-gray-700 hover:bg-gray-700">
+            <td class="px-6 py-4 font-medium text-black whitespace-nowrap">{{ estudiante.nombre }}</td>
+            <td class="px-6 py-4 text-black">{{ estudiante.apellidos }}</td>
+            <td class="px-6 py-4 text-black">{{ estudiante.telefono }}</td>
+            <td class="px-6 py-4 text-black">{{ estudiante.grado }}</td>
+            <td class="px-6 py-4 flex space-x-2">
+              <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                Editar
+              </button>
+              <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          <!-- Fin de la iteración -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
