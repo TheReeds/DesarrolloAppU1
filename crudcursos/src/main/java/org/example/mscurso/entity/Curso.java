@@ -2,6 +2,7 @@ package org.example.mscurso.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.mscurso.dto.ProfesoresDto;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -19,5 +20,7 @@ public class Curso {
 
     private String duracion;
 
+    @Transient
+    private ProfesoresDto profesoresDto;
 }
 

@@ -37,7 +37,7 @@ public class CursoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Curso> ListById(@PathVariable(required = true)Integer id) {
-        return ResponseEntity.ok().body(cursoService.buscarPorId(id).get());
+        return ResponseEntity.ok().body(cursoService.buscarPorId(id));
     }
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable(required = true)Integer id){
