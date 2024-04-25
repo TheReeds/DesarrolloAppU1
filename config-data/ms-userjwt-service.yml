@@ -16,6 +16,14 @@ spring:
     url: jdbc:mysql://localhost:3306/ms_userjwt
     username: root
     password:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - POST
 
 eureka:
   client:
