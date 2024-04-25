@@ -16,6 +16,7 @@ public class ProfesoresServiceImpl implements ProfesoresService {
 
     @Autowired
     private ProfesoresRepository profesoresRepository;
+
     @Autowired
     private CursoFeign cursoFeign;
 
