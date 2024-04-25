@@ -1,5 +1,6 @@
 package com.example.crudprofesores.service.Impl;
 
+import com.example.crudprofesores.dto.CursoDto;
 import com.example.crudprofesores.entity.Profesores;
 import com.example.crudprofesores.feign.CursoFeign;
 import com.example.crudprofesores.repository.ProfesoresRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProfesoresServiceImpl implements ProfesoresService {
@@ -28,7 +30,21 @@ public class ProfesoresServiceImpl implements ProfesoresService {
 
     @Override
     public Profesores buscarPorId(Integer id) {
-        return profesoresRepository.findById(id).get();
+        Optional<Profesores> profesorOptional = profesoresRepository.findById(id);
+        if (profesorOptional.isPresent()) {
+            Profesores profesor = profesorOptional.get();
+            // Obtener información del curso asociado al profesor utilizando Feign
+            try {
+                CursoDto cursoDto = cursoFeign.buscarPorId(profesor.getId()).getBody();
+                if (cursoDto != null) {
+                    profesor.setCursoDto(cursoDto);
+                }
+            } catch (Exception e) {
+                // Manejar el caso en el que no se pueda obtener la información del curso
+            }
+            return profesor;
+        }
+        return null;
     }
 
     @Override
