@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class ProfesoresDto {
-    @Id
     private Integer id;
     private String nombre;
     private String dni;
