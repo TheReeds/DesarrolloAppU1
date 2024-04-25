@@ -10,7 +10,7 @@ eureka:
     hostname: localhost
 
 
-spring:
+
   cloud:
     gateway:
       discovery:
@@ -33,3 +33,12 @@ spring:
           uri: lb://ms-userjwt-service
           predicates:
             - Path=/auth/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "https://localhost:4200/"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
