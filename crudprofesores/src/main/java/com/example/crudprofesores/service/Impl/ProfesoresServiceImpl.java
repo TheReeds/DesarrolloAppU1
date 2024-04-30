@@ -24,10 +24,7 @@ public class ProfesoresServiceImpl implements ProfesoresService {
 
     @Override
     public List<Profesores> listar() {
-        List<Profesores> profesores = profesoresRepository.findAll();
-        return profesores.stream()
-                .map(this::agregarInformacionCurso)
-                .collect(Collectors.toList());
+        return profesoresRepository.findAll();
     }
     @Override
     public Profesores guardar(Profesores profesores) {
@@ -36,33 +33,8 @@ public class ProfesoresServiceImpl implements ProfesoresService {
 
     @Override
     public Profesores buscarPorId(Integer id) {
-        Optional<Profesores> profesorOptional = profesoresRepository.findById(id);
-        if (profesorOptional.isPresent()) {
-            Profesores profesor = profesorOptional.get();
-            // Obtener información del curso asociado al profesor utilizando Feign
-            try {
-                CursoDto cursoDto = cursoFeign.buscarPorId(profesor.getId()).getBody();
-                if (cursoDto != null) {
-                    // Almacenar temporalmente los datos del curso en cursoDto
-                    profesor.setCursoDto(cursoDto);
-                }
-            } catch (Exception e) {
-                // Manejar el caso en el que no se pueda obtener la información del curso
-            }
-            return profesor;
-        }
-        return null;
-    }
-    private Profesores agregarInformacionCurso(Profesores profesor) {
-        try {
-            CursoDto cursoDto = cursoFeign.buscarPorId(profesor.getId()).getBody();
-            if (cursoDto != null) {
-                profesor.setCursoDto(cursoDto);
-            }
-        } catch (Exception e) {
-            // Manejar el caso en el que no se pueda obtener la información del curso
-        }
-        return profesor;
+        Profesores profesores = profesoresRepository.findById(id).get();
+        return profesores;
     }
 
     @Override

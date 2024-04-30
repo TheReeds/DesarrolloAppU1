@@ -14,6 +14,4 @@ public class Profesores {
     private String dni;
     private String especialidad;
     private String telefono;
-    @Transient
-    private CursoDto cursoDto;
 }

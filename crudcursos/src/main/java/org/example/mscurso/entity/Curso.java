@@ -20,6 +20,7 @@ public class Curso {
 
     private String duracion;
 
+    private Integer ProfesorId;
     @Transient
     private ProfesoresDto profesoresDto;
 }

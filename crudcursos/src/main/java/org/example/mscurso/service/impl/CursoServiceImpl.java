@@ -6,6 +6,7 @@ import org.example.mscurso.feign.ProfesoresFeign;
 import org.example.mscurso.repository.CursoRepository;
 import org.example.mscurso.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,27 +27,19 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public Curso guardar(Curso curso) {
-        return cursoRepository.save(curso);
+        curso.setProfesoresDto(profesoresFeign.listById(curso.getProfesorId()).getBody());
+        if (curso == null){
+            throw new RuntimeException("El curso existe");
+        }else{
+        return cursoRepository.save(curso);}
     }
+
 
     @Override
     public Curso buscarPorId(Integer id) {
-        Optional<Curso> cursoOptional = cursoRepository.findById(id);
-        if (cursoOptional.isPresent()) {
-            Curso curso = cursoOptional.get();
-            // Obtener información del curso asociado al profesor utilizando Feign
-            try {
-                ProfesoresDto profesorDto = profesoresFeign.listById(curso.getId()).getBody();
-                if (profesorDto != null) {
-                    // Almacenar temporalmente los datos del curso en cursoDto
-                    curso.setProfesoresDto(profesorDto);
-                }
-            } catch (Exception e) {
-                // Manejar el caso en el que no se pueda obtener la información del curso
-            }
-            return curso;
-        }
-        return null;
+        Curso curso = cursoRepository.findById(id).get();
+        curso.setProfesoresDto(profesoresFeign.listById(curso.getProfesorId()).getBody());
+        return curso;
     }
     @Override
     public Curso editar(Curso curso) {
