@@ -34,3 +34,7 @@ spring:
           uri: lb://ms-userjwt-service
           predicates:
             - Path=/auth/**
+        - id: ms-matricula-service
+          uri: lb://ms-matricula-service
+          predicates:
+            - Path=/matriculas/**

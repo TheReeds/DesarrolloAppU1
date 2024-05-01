@@ -19,7 +19,7 @@ public class MatriculaServiceImpl implements MatriculaService {
     private MatriculaRepository matriculaRepository;
 
     @Autowired
-    private CursoFeign cursoFeign;
+    public CursoFeign cursoFeign;
 
     @Override
     public List<Matricula> listar() {
