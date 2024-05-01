@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "ms-curso-service", path = "/curso")
 public interface CursoFeign {
 @GetMapping(value = "/{id}")
-ResponseEntity<CursoDto> listById(@PathVariable(required = true) Integer id);
+    ResponseEntity<CursoDto> listById(@PathVariable(required = true) Integer id);
 }
