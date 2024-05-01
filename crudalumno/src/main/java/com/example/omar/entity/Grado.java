@@ -8,15 +8,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Alumno {
+public class Grado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
-    private String apellidos;
-    private String telefono;
-    private String grado;
-    public Alumno(){
-        this.grado = "ninguno";
-    }
 }

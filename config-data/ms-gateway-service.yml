@@ -21,6 +21,7 @@ spring:
           uri: lb://ms-alumno-service
           predicates:
             - Path=/alumno/**
+            - Path=/grado/**
         - id: ms-profesores-service
           uri: lb://ms-profesores-service
           predicates:
