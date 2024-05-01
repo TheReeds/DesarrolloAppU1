@@ -6,6 +6,7 @@ import org.example.mscurso.feign.ProfesoresFeign;
 import org.example.mscurso.repository.CursoRepository;
 import org.example.mscurso.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,18 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public List<Curso> listar() {
-        return cursoRepository.findAll();
+        List<Curso> cursos = cursoRepository.findAll();
+        for (Curso curso : cursos) {
+            ResponseEntity<ProfesoresDto> response = profesoresFeign.listById(curso.getProfesorId());
+            if (response.getStatusCode() == HttpStatus.OK) {
+                curso.setProfesoresDto(response.getBody());
+            } else {
+                // Manejar el error si la solicitud no fue exitosa
+                // Puedes lanzar una excepción, registrar un mensaje de error, etc.
+            }
+        }
+
+        return cursos;
     }
 
     @Override
@@ -49,6 +61,5 @@ public class CursoServiceImpl implements CursoService {
     @Override
     public void eliminar(Integer id) {
         cursoRepository.deleteById(id);
-
     }
 }
