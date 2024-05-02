@@ -21,9 +21,9 @@ public class AlumnoController {
     public ResponseEntity<Alumno> save(@RequestBody Alumno alumno){
         return  ResponseEntity.ok(alumnoService.guardar(alumno));
     }
-    @PutMapping()
-    public  ResponseEntity<Alumno> update(@RequestBody Alumno alumno){
-        return ResponseEntity.ok(alumnoService.actualizar(alumno));
+    @PutMapping("/{id}")
+    public ResponseEntity<Alumno> update(@RequestBody Alumno curso) {
+        return ResponseEntity.ok(alumnoService.actualizar(curso));
     }
     @GetMapping("/{id}")
     public ResponseEntity<Alumno> listById(@PathVariable(required = true) Integer id){

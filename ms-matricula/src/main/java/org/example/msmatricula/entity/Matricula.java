@@ -9,7 +9,7 @@ import org.example.msmatricula.Dto.CursoDto;
 public class Matricula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private int estudianteId;
     private int cursoId;
     private int fechaMatriculacion;

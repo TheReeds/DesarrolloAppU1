@@ -1,9 +1,6 @@
 package com.example.omar.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -15,5 +12,10 @@ public class Alumno {
     private String nombre;
     private String apellidos;
     private String telefono;
-    private String grado;
+    @ManyToOne
+    private Grado grado;
+    public Alumno() {
+        this.grado = new Grado();
+        this.grado.setId(1);
+    }
 }
