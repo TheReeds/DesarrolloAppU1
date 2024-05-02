@@ -23,7 +23,7 @@ public class GradoController {
     public ResponseEntity<Grado> save(@RequestBody Grado grado){
         return  ResponseEntity.ok(gradoService.guardar(grado));
     }
-    @PutMapping()
+    @PutMapping("/{id}")
     public  ResponseEntity<Grado> update(@RequestBody Grado grado){
         return ResponseEntity.ok(gradoService.actualizar(grado));
     }
