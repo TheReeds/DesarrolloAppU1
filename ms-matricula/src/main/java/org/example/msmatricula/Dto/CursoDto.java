@@ -12,5 +12,5 @@ public class CursoDto {
 
     private String duracion;
 
-    private Integer ProfesorId;
+    private Integer profesorId;
 }
