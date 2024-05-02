@@ -13,4 +13,6 @@ public class Grado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
+    private String turno = "mañana";
+    private String nivel = "primaria";
 }
