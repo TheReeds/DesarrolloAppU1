@@ -2,6 +2,7 @@ package org.example.msmatricula.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.msmatricula.Dto.AlumnoDto;
 import org.example.msmatricula.Dto.CursoDto;
 
 @Entity
@@ -13,7 +14,10 @@ public class Matricula {
     private int estudianteId;
     private int cursoId;
     private int fechaMatriculacion;
+    private int alumnoId;
 
     @Transient
     private CursoDto cursoDto;
+    @Transient
+    private AlumnoDto alumnoDto;
 }
