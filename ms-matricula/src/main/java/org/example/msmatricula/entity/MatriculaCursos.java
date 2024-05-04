@@ -13,4 +13,5 @@ public class MatriculaCursos {
     private Integer cursoId;
     @Transient
     CursoDto curso;
+
 }

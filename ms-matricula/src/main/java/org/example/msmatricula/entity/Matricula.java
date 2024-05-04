@@ -16,6 +16,7 @@ public class Matricula {
     private Integer id;
     private int fechaMatriculacion;
     private int alumnoId;
+    private boolean estado = false;
     @Transient
     private AlumnoDto alumnoDto;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
