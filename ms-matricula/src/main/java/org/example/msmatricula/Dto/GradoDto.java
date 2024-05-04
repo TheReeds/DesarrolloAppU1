@@ -1,13 +1,11 @@
 package org.example.msmatricula.Dto;
 
-
 import lombok.Data;
 
 @Data
-public class AlumnoDto {
+public class GradoDto {
     private Integer id;
     private String nombre;
-    private String apellidos;
-    private String telefono;
-    private GradoDto grado;
+    private String turno;
+    private String nivel;
 }

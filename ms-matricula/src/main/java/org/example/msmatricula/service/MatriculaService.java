@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface MatriculaService {
     public List<Matricula> listar();
     public Matricula guardar(Matricula matricula);
-    public Optional<Matricula> buscarPorId(Integer id);
+    public Matricula buscarPorId(Integer id);
     public Matricula editar(Matricula matricula);
     public void eliminar(Integer id);
 }

@@ -3,6 +3,7 @@ package org.example.msmatricula.service.impl;
 import org.example.msmatricula.Dto.AlumnoDto;
 import org.example.msmatricula.Dto.CursoDto;
 import org.example.msmatricula.entity.Matricula;
+import org.example.msmatricula.entity.MatriculaCursos;
 import org.example.msmatricula.feign.AlumnoFeign;
 import org.example.msmatricula.feign.CursoFeign;
 import org.example.msmatricula.repository.MatriculaRepository;
@@ -30,14 +31,6 @@ public class MatriculaServiceImpl implements MatriculaService {
     public List<Matricula> listar() {
         List<Matricula> matriculas = matriculaRepository.findAll();
         for (Matricula matricula : matriculas) {
-            // Obtener información del curso
-            ResponseEntity<CursoDto> cursoResponse = cursoFeign.listById(matricula.getCursoId());
-            if (cursoResponse.getStatusCode() == HttpStatus.OK) {
-                matricula.setCursoDto(cursoResponse.getBody());
-            } else {
-                // Manejar el error si la solicitud no fue exitosa
-            }
-
             // Obtener información del alumno
             ResponseEntity<AlumnoDto> alumnoResponse = alumnoFeign.listById(matricula.getAlumnoId());
             if (alumnoResponse.getStatusCode() == HttpStatus.OK) {
@@ -48,29 +41,34 @@ public class MatriculaServiceImpl implements MatriculaService {
         }
         return matriculas;
     }
+
     @Override
     public Matricula guardar(Matricula matricula) {
-        matricula.setCursoDto(cursoFeign.listById(matricula.getCursoId()).getBody());
-        if (matricula == null){
-            throw new RuntimeException("La matrícula no puede ser nula");
+        // Obtener información del alumno
+        ResponseEntity<AlumnoDto> alumnoResponse = alumnoFeign.listById(matricula.getAlumnoId());
+        if (alumnoResponse.getStatusCode() == HttpStatus.OK) {
+            matricula.setAlumnoDto(alumnoResponse.getBody());
+        } else {
+            // Manejar el error si la solicitud no fue exitosa
         }
+
         return matriculaRepository.save(matricula);
     }
 
 
+
     @Override
-    public Optional<Matricula> buscarPorId(Integer id) {
-        Matricula matricula = matriculaRepository.findById(id).orElse(null);
-        if (matricula != null) {
-            ResponseEntity<CursoDto> response = cursoFeign.listById(matricula.getCursoId());
-            if (response.getStatusCode() == HttpStatus.OK) {
-                matricula.setCursoDto(response.getBody());
-            } else {
-                // Manejar el error si la solicitud no fue exitosa
-                // Puedes lanzar una excepción, registrar un mensaje de error, etc.
-            }
-        }
-        return Optional.ofNullable(matricula);
+    public Matricula buscarPorId(Integer id) {
+        Matricula matricula = matriculaRepository.findById(id).get();
+        matricula.setAlumnoDto(alumnoFeign.listById(matricula.getAlumnoId()).getBody());
+        //
+        List<MatriculaCursos> matriculaCursos = matricula.getCursos().stream().map(matriculaCurso -> {
+            matriculaCurso.setCurso(cursoFeign.listById(matriculaCurso.getCursoId()).getBody());
+            return matriculaCurso;
+        }).toList();
+        matricula.setCursos(matriculaCursos);
+
+        return matricula;
     }
 
     @Override

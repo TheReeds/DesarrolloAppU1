@@ -34,7 +34,7 @@ public class MatriculaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Matricula> ListById(@PathVariable(required = true)Integer id) {
-        return ResponseEntity.ok().body(matriculaService.buscarPorId(id).get());
+        return ResponseEntity.ok().body(matriculaService.buscarPorId(id));
     }
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable(required = true)Integer id){
