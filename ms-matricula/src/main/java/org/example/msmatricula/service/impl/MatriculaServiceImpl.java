@@ -38,6 +38,11 @@ public class MatriculaServiceImpl implements MatriculaService {
             } else {
                 // Manejar el error si la solicitud no fue exitosa
             }
+            List<MatriculaCursos> matriculaCursos = matricula.getCursos().stream().map(matriculaCurso -> {
+                matriculaCurso.setCurso(cursoFeign.listById(matriculaCurso.getCursoId()).getBody());
+                return matriculaCurso;
+            }).toList();
+            matricula.setCursos(matriculaCursos);
         }
         return matriculas;
     }
