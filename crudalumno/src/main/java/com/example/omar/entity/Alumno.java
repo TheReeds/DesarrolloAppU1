@@ -1,5 +1,6 @@
 package com.example.omar.entity;
 
+import com.example.omar.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,9 +13,13 @@ public class Alumno {
     private String nombre;
     private String apellidos;
     private String telefono;
-    private String notas;
     @ManyToOne
     private Grado grado;
+    private int usuarioId;
+    @Transient
+    @MapsId
+    @JoinColumn(name = "id_estudiante")
+    private UserDto usuarioDto;
     public Alumno() {
         this.grado = new Grado();
         this.grado.setId(1);

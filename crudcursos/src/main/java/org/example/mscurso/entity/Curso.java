@@ -22,6 +22,7 @@ public class Curso {
 
     private Integer ProfesorId;
 
+
     @Transient
     private ProfesoresDto profesoresDto;
 }
