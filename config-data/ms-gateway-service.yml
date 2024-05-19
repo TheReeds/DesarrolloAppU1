@@ -36,7 +36,7 @@ spring:
         - id: ms-matricula-service
           uri: lb://ms-matricula-service
           predicates:
-            - Path=/matriculas/**
+            - Path=/matriculas/**, /aulas/**
         - id: ms-userjwt-service
           uri: lb://ms-userjwt-service
           predicates:

@@ -2,6 +2,7 @@ package org.example.msmatricula.Dto;
 
 import lombok.Data;
 
+
 @Data
 public class CursoDto {
     private Integer id;
@@ -13,4 +14,6 @@ public class CursoDto {
     private String duracion;
 
     private Integer profesorId;
+
+    private ProfesorDto profesoresDto;
 }
