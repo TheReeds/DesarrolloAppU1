@@ -7,7 +7,7 @@ import org.example.msmatricula.Dto.CursoDto;
 @Data
 @Entity
 public class AulaAlumnos {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
     private Integer alumnoId;

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Aula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,17 +16,17 @@ public class Aula {
 
     private String nombre;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "curso_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Curso curso;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "profesor_id")
     private Profesor profesor;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "aula_id")
     private List<AulaAlumnos> alumnos;
+
 }
 

@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,11 +84,100 @@ public class AulaServiceImpl implements AulaService {
 
     @Override
     public List<Aula> getAllAulas() {
-        return aulaRepository.findAll();
+        // Obtener todas las aulas de la base de datos
+        List<Aula> aulas = aulaRepository.findAll();
+
+        // Para cada aula, obtener la información adicional del curso, el profesor y los estudiantes
+        for (Aula aula : aulas) {
+            // Obtener información del curso y del profesor
+            CursoDto cursoDto = cursoFeign.listById(aula.getCurso().getId()).getBody();
+            ProfesorDto profesorDto = cursoDto.getProfesoresDto();
+
+            Curso curso = new Curso();
+            curso.setId(cursoDto.getId());
+            curso.setNombre(cursoDto.getNombre());
+            curso.setDescripcion(cursoDto.getDescripcion());
+            curso.setDuracion(cursoDto.getDuracion());
+
+            // Crear el objeto Profesor y asignarlo al curso
+            Profesor profesor = new Profesor();
+            profesor.setId(profesorDto.getId());
+            profesor.setNombre(profesorDto.getNombre());
+            profesor.setDni(profesorDto.getDni());
+            profesor.setEspecialidad(profesorDto.getEspecialidad());
+            profesor.setTelefono(profesorDto.getTelefono());
+
+            curso.setProfesor(profesor);
+
+            // Obtener la información de los estudiantes y asignarla al objeto Aula
+            List<AulaAlumnos> alumnos = new ArrayList<>();
+            for (AulaAlumnos aulaAlumno : aula.getAlumnos()) {
+                AlumnoDto alumnoDto = alumnoFeign.listById(aulaAlumno.getAlumnoId()).getBody();
+                AulaAlumnos aulaAlumnos = new AulaAlumnos();
+                aulaAlumnos.setId(aulaAlumno.getId());  // Asignar el ID correctamente
+                aulaAlumnos.setAlumnoId(alumnoDto.getId());
+                aulaAlumnos.setAlumno(alumnoDto);
+                alumnos.add(aulaAlumnos);
+            }
+
+            aula.setCurso(curso);
+            aula.setProfesor(profesor);
+            aula.setAlumnos(alumnos);
+        }
+
+        return aulas;
     }
 
     @Override
     public Aula getAulaById(Integer id) {
-        return aulaRepository.findById(id).orElse(null);
+        Optional<Aula> optionalAula = aulaRepository.findById(id);
+        if (optionalAula.isPresent()) {
+            Aula aula = optionalAula.get();
+
+            CursoDto cursoDto = cursoFeign.listById(aula.getCurso().getId()).getBody();
+            ProfesorDto profesorDto = cursoDto.getProfesoresDto();
+
+            Curso curso = new Curso();
+            curso.setId(cursoDto.getId());
+            curso.setNombre(cursoDto.getNombre());
+            curso.setDescripcion(cursoDto.getDescripcion());
+            curso.setDuracion(cursoDto.getDuracion());
+
+            Profesor profesor = new Profesor();
+            profesor.setId(profesorDto.getId());
+            profesor.setNombre(profesorDto.getNombre());
+            profesor.setDni(profesorDto.getDni());
+            profesor.setEspecialidad(profesorDto.getEspecialidad());
+            profesor.setTelefono(profesorDto.getTelefono());
+
+            curso.setProfesor(profesor);
+
+            List<AulaAlumnos> alumnos = new ArrayList<>();
+            for (AulaAlumnos aulaAlumno : aula.getAlumnos()) {
+                AlumnoDto alumnoDto = alumnoFeign.listById(aulaAlumno.getAlumnoId()).getBody();
+                AulaAlumnos aulaAlumnos = new AulaAlumnos();
+                aulaAlumnos.setId(aulaAlumno.getId());  // Asignar el ID correctamente
+                aulaAlumnos.setAlumnoId(alumnoDto.getId());
+                aulaAlumnos.setAlumno(alumnoDto);
+                alumnos.add(aulaAlumnos);
+            }
+
+            aula.setCurso(curso);
+            aula.setProfesor(profesor);
+            aula.setAlumnos(alumnos);
+
+            return aula;
+        } else {
+            return null; // Manejar el caso en que no se encuentre el aula con el ID especificado
+        }
+    }
+    @Override
+    public void deleteAulaById(Integer id) {
+        Optional<Aula> optionalAula = aulaRepository.findById(id);
+        if (optionalAula.isPresent()) {
+            aulaRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Aula no encontrada con el id: " + id);
+        }
     }
 }

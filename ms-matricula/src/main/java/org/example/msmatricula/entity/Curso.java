@@ -1,10 +1,12 @@
 package org.example.msmatricula.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,4 +12,6 @@ public interface AulaService {
     public List<Aula> getAllAulas();
 
     public Aula getAulaById(Integer id);
+    void deleteAulaById(Integer id);
+
 }

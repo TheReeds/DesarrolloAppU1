@@ -37,4 +37,9 @@ public class AulaController {
             return ResponseEntity.notFound().build();
         }
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAula(@PathVariable Integer id) {
+        aulaService.deleteAulaById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
