@@ -5,3 +5,24 @@ spring:
     active: development
   config:
     import: optional:configserver:http://root:123456@localhost:7071
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    datasource:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/ms_userjwt
+      username: root
+      password:
+    servlet:
+      multipart:
+        max-file-size: 10MB
+        max-request-size: 10MB
+
+default:
+  profile:
+    image:
+      url: /images/default-profile.png
+upload:
+  directory: uploads/

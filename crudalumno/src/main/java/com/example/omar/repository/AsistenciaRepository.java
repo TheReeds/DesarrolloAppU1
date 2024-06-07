@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface AsistenciaRepository extends JpaRepository<Asistencia, Integer> {
     List<Asistencia> findByAlumnoId(Integer alumnoId);
+    List<Asistencia> findByCursoId(Integer cursoId);
 }

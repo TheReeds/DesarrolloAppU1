@@ -16,8 +16,12 @@ public class Asistencia {
     private Integer alumnoId;
 
     @Column(nullable = false)
+    private Integer cursoId;
+
+    @Column(nullable = false)
     private LocalDateTime fecha;
 
     @Column(nullable = false)
     private Boolean presente;
+
 }

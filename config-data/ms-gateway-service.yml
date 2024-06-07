@@ -28,7 +28,7 @@ spring:
         - id: ms-curso-service
           uri: lb://ms-curso-service
           predicates:
-            - Path=/cursos/**
+            - Path=/cursos/**, /notas/**
         - id: ms-userjwt-service
           uri: lb://ms-userjwt-service
           predicates:

@@ -27,6 +27,12 @@ public class AsistenciaController {
         return ResponseEntity.ok(asistencias);
     }
 
+    @GetMapping("/curso/{cursoId}")
+    public ResponseEntity<List<Asistencia>> obtenerAsistenciasPorCursoId(@PathVariable Integer cursoId) {
+        List<Asistencia> asistencias = asistenciaService.obtenerAsistenciasPorCursoId(cursoId);
+        return ResponseEntity.ok(asistencias);
+    }
+
     @GetMapping
     public ResponseEntity<List<Asistencia>> obtenerTodasLasAsistencias() {
         List<Asistencia> asistencias = asistenciaService.obtenerTodasLasAsistencias();

@@ -20,11 +20,12 @@ import java.util.List;
 @Builder
 public class User implements UserDetails {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String email;
     private String password;
+    private String profileImageUrl; // Nuevo campo
 
     @Enumerated(EnumType.ORDINAL)
     private Role role;

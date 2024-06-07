@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class AsistenciaDto {
     private Integer id;
     private Integer alumnoId;
+    private Integer cursoId;
     private LocalDateTime fecha;
     private Boolean presente;
 }

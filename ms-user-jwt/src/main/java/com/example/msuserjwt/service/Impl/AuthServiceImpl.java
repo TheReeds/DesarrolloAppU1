@@ -9,6 +9,7 @@ import com.example.msuserjwt.entity.User;
 import com.example.msuserjwt.repository.UserRepository;
 import com.example.msuserjwt.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,9 @@ public class AuthServiceImpl implements AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    //@Value("${default.profile.image.url}")
+    private String defaultProfileImageUrl;
+
     @Override
     public AuthResponse register(RegisterRequest request) {
         var user = User.builder()
@@ -30,6 +34,7 @@ public class AuthServiceImpl implements AuthService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
+                .profileImageUrl(defaultProfileImageUrl) // Asignar imagen por defecto
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
