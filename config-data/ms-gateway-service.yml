@@ -24,7 +24,7 @@ spring:
         - id: ms-profesores-service
           uri: lb://ms-profesores-service
           predicates:
-            - Path=/profesores/**
+            - Path=/profesores/**, /anuncios/**
         - id: ms-curso-service
           uri: lb://ms-curso-service
           predicates:

@@ -14,6 +14,7 @@ public class Alumno {
     private String apellidos;
     private String telefono;
     private String dni;
+    private boolean estado;
     @ManyToOne
     private Grado grado;
     private int usuarioId;
@@ -24,5 +25,6 @@ public class Alumno {
     public Alumno() {
         this.grado = new Grado();
         this.grado.setId(1);
+        this.estado = false; // Inicialmente false
     }
 }

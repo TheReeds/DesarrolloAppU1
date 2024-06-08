@@ -57,21 +57,27 @@ public class MatriculaServiceImpl implements MatriculaService {
 
     @Override
     public Matricula guardar(Matricula matricula) {
-        // Obtener información del alumno
         ResponseEntity<AlumnoDto> alumnoResponse = alumnoFeign.listById(matricula.getAlumnoId());
         if (alumnoResponse.getStatusCode() == HttpStatus.OK) {
-            matricula.setAlumnoDto(alumnoResponse.getBody());
+            AlumnoDto alumnoDto = alumnoResponse.getBody();
+            if (alumnoDto.isEstado()) {
+                // Manejar el caso en que el estudiante ya está matriculado
+                throw new IllegalStateException("El estudiante ya está matriculado.");
+            } else {
+                // Actualizar el estado del alumno a matriculado
+                alumnoFeign.actualizarEstado(alumnoDto.getId(), true);
+                matricula.setAlumnoDto(alumnoDto);
+            }
         } else {
             // Manejar el error si la solicitud no fue exitosa
         }
 
         Matricula savedMatricula = matriculaRepository.save(matricula);
 
-        // Inicializar notas para cada curso en la nueva matrícula
         for (MatriculaCursos matriculaCurso : savedMatricula.getCursos()) {
             cursoFeign.inicializarNotasParaAlumnoEnCurso(matriculaCurso.getCursoId(), savedMatricula.getAlumnoId());
         }
-        // Generar PDF de constancia de matrícula
+
         ByteArrayInputStream pdfStream = pdfService.generateConstanciaMatriculaPdf(savedMatricula);
 
         return savedMatricula;
@@ -98,10 +104,22 @@ public class MatriculaServiceImpl implements MatriculaService {
         return matriculaRepository.save(matricula);
     }
 
+
     @Override
     public void eliminar(Integer id) {
-        matriculaRepository.deleteById(id);
+        Optional<Matricula> matriculaOptional = matriculaRepository.findById(id);
+        if (matriculaOptional.isPresent()) {
+            Matricula matricula = matriculaOptional.get();
+            Integer alumnoId = matricula.getAlumnoId();
 
+            // Cambiar el estado del alumno a false
+            alumnoFeign.actualizarEstado(alumnoId, false);
+
+            // Eliminar la matrícula
+            matriculaRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("No se encontró la matrícula con el ID: " + id);
+        }
     }
     @Override
     public List<Matricula> buscarPorCursoId(Integer cursoId) {
