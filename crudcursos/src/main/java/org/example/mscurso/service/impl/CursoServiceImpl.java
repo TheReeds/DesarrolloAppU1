@@ -49,12 +49,14 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public Curso buscarPorId(Integer id) {
-        Curso curso = cursoRepository.findById(id).get();
+        Curso curso = cursoRepository.findById(id).orElseThrow(() -> new RuntimeException("Curso no encontrado"));
         curso.setProfesoresDto(profesoresFeign.listById(curso.getProfesorId()).getBody());
         return curso;
     }
     @Override
     public Curso editar(Curso curso) {
+        ProfesoresDto profesorDto = profesoresFeign.listById(curso.getProfesorId()).getBody();
+        curso.setProfesoresDto(profesorDto);
         return cursoRepository.save(curso);
     }
 

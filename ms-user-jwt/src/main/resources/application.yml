@@ -23,6 +23,6 @@ spring:
 default:
   profile:
     image:
-      url: /images/default-profile.png
+      url: uploads\default-profile.png
 upload:
   directory: uploads/

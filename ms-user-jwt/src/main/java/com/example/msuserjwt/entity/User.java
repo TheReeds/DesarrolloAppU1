@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "tbl_user")
+@Table(name = "tbl_user", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

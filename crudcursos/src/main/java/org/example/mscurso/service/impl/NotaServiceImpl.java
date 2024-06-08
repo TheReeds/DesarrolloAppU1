@@ -1,10 +1,13 @@
 package org.example.mscurso.service.impl;
 
+import org.example.mscurso.dto.MatriculaDto;
+import org.example.mscurso.dto.NotaBulkUpdateDto;
 import org.example.mscurso.dto.NotaDto;
 import org.example.mscurso.dto.NotasRequestDto;
 import org.example.mscurso.entity.Curso;
 import org.example.mscurso.entity.Nota;
 import org.example.mscurso.feign.AlumnoFeign;
+import org.example.mscurso.feign.MatriculaFeign;
 import org.example.mscurso.repository.CursoRepository;
 import org.example.mscurso.repository.NotaRepository;
 import org.example.mscurso.service.NotaService;
@@ -12,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class NotaServiceImpl implements NotaService {
@@ -24,11 +29,33 @@ public class NotaServiceImpl implements NotaService {
     private CursoRepository cursoRepository;
 
     @Autowired
-    private AlumnoFeign alumnoFeign;
+    private MatriculaFeign matriculaFeign;
 
     @Override
     public Nota registrarNota(Nota nota) {
         return notaRepository.save(nota);
+    }
+    @Override
+    public void inicializarNotasParaCurso(Integer cursoId) {
+        Curso curso = cursoRepository.findById(cursoId)
+                .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+
+        List<MatriculaDto> matriculas = matriculaFeign.obtenerMatriculasPorCurso(cursoId);
+
+        List<Nota> notas = matriculas.stream()
+                .flatMap(matricula -> {
+                    return IntStream.rangeClosed(1, curso.getNumeroDePeriodos())
+                            .mapToObj(periodo -> {
+                                Nota nota = new Nota();
+                                nota.setCurso(curso);
+                                nota.setAlumnoId(matricula.getAlumnoId());
+                                nota.setPeriodo(periodo);
+                                nota.setValor(0);
+                                return nota;
+                            });
+                }).collect(Collectors.toList());
+
+        notaRepository.saveAll(notas);
     }
 
     @Override
@@ -60,6 +87,47 @@ public class NotaServiceImpl implements NotaService {
         List<Nota> notas = notaRepository.findByAlumnoId(alumnoId);
         return notas.stream().map(this::mapToDto).collect(Collectors.toList());
     }
+    @Override
+    public List<NotaDto> obtenerNotasPorCursoIdYAlumnoId(Integer cursoId, Integer alumnoId) {
+        List<Nota> notas = notaRepository.findByCursoIdAndAlumnoId(cursoId, alumnoId);
+        return notas.stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+    @Override
+    public void inicializarNotasParaAlumnoEnCurso(Integer cursoId, Integer alumnoId) {
+        Curso curso = cursoRepository.findById(cursoId)
+                .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+
+        List<Nota> notas = IntStream.rangeClosed(1, curso.getNumeroDePeriodos())
+                .mapToObj(periodo -> {
+                    Nota nota = new Nota();
+                    nota.setCurso(curso);
+                    nota.setAlumnoId(alumnoId);
+                    nota.setPeriodo(periodo);
+                    nota.setValor(0);
+                    return nota;
+                }).collect(Collectors.toList());
+
+        notaRepository.saveAll(notas);
+    }
+    @Override
+    public void bulkUpdateNotas(NotaBulkUpdateDto bulkUpdateDto) {
+        Integer cursoId = bulkUpdateDto.getCursoId();
+        for (NotaBulkUpdateDto.NotaAlumnoDto notaAlumno : bulkUpdateDto.getNotasAlumnos()) {
+            Integer alumnoId = notaAlumno.getAlumnoId();
+            for (NotaBulkUpdateDto.NotaPeriodoDto notaPeriodo : notaAlumno.getNotasPeriodos()) {
+                Optional<Nota> notaOpt = notaRepository.findByCursoIdAndAlumnoIdAndPeriodo(cursoId, alumnoId, notaPeriodo.getPeriodo());
+                if (notaOpt.isPresent()) {
+                    Nota nota = notaOpt.get();
+                    nota.setValor(notaPeriodo.getValor());
+                    notaRepository.save(nota);
+                } else {
+                    // Lógica opcional en caso de que la nota no exista (puede lanzar una excepción o ignorar)
+                }
+            }
+        }
+    }
+
+
 
     private NotaDto mapToDto(Nota nota) {
         NotaDto dto = new NotaDto();

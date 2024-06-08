@@ -1,10 +1,10 @@
 package com.example.omar.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -15,4 +15,7 @@ public class Grado {
     private String nombre;
     private String turno = "mañana";
     private String nivel = "primaria";
+    @OneToMany(mappedBy = "grado")
+    @JsonManagedReference
+    private List<Horario> horarios;
 }

@@ -16,6 +16,8 @@ public class Aula {
 
     private String nombre;
 
+    private Integer gradoId;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "curso_id")
     private Curso curso;

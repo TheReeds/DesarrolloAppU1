@@ -9,7 +9,7 @@ import com.example.msuserjwt.entity.User;
 import com.example.msuserjwt.repository.UserRepository;
 import com.example.msuserjwt.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    //@Value("${default.profile.image.url}")
+    @Value("${default.profile.image.url}")
     private String defaultProfileImageUrl;
 
     @Override

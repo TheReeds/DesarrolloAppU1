@@ -13,6 +13,7 @@ public class Alumno {
     private String nombre;
     private String apellidos;
     private String telefono;
+    private String dni;
     @ManyToOne
     private Grado grado;
     private int usuarioId;

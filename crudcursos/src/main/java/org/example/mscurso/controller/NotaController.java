@@ -1,5 +1,6 @@
 package org.example.mscurso.controller;
 
+import org.example.mscurso.dto.NotaBulkUpdateDto;
 import org.example.mscurso.dto.NotaDto;
 import org.example.mscurso.dto.NotasRequestDto;
 import org.example.mscurso.entity.Nota;
@@ -39,5 +40,20 @@ public class NotaController {
     public ResponseEntity<List<NotaDto>> obtenerNotasPorAlumnoId(@PathVariable Integer alumnoId) {
         List<NotaDto> notas = notaService.obtenerNotasPorAlumnoId(alumnoId);
         return ResponseEntity.ok(notas);
+    }
+    @PostMapping("/inicializar/{cursoId}")
+    public ResponseEntity<Void> inicializarNotasParaCurso(@PathVariable Integer cursoId) {
+        notaService.inicializarNotasParaCurso(cursoId);
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/inicializar/{cursoId}/alumno/{alumnoId}")
+    public ResponseEntity<Void> inicializarNotasParaAlumnoEnCurso(@PathVariable Integer cursoId, @PathVariable Integer alumnoId) {
+        notaService.inicializarNotasParaAlumnoEnCurso(cursoId, alumnoId);
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/bulk-update")
+    public ResponseEntity<Void> bulkUpdateNotas(@RequestBody NotaBulkUpdateDto bulkUpdateDto) {
+        notaService.bulkUpdateNotas(bulkUpdateDto);
+        return ResponseEntity.ok().build();
     }
 }

@@ -9,5 +9,6 @@ public class AlumnoDto {
     private String nombre;
     private String apellidos;
     private String telefono;
+    private String dni;
     private GradoDto grado;
 }

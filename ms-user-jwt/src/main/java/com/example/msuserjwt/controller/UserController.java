@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,10 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> list() {
         return ResponseEntity.ok().body(userService.listar());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<User> listById(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(userService.listarPorId(id).orElse(null));
     }
 
     @PostMapping("/{id}/profile-image")
@@ -40,10 +45,18 @@ public class UserController {
             Files.createDirectories(uploadPath);
         }
 
-        // Guardar la imagen en el servidor
+        // Eliminar la imagen anterior si existe
+        if (user.getProfileImageUrl() != null && !user.getProfileImageUrl().isEmpty()) {
+            Path oldImagePath = Paths.get(user.getProfileImageUrl());
+            if (Files.exists(oldImagePath)) {
+                Files.delete(oldImagePath);
+            }
+        }
+
+        // Guardar la nueva imagen en el servidor
         String fileName = image.getOriginalFilename();
         Path filePath = uploadPath.resolve(fileName);
-        Files.write(filePath, image.getBytes());
+        Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
         // Actualizar la URL de la imagen de perfil del usuario
         user.setProfileImageUrl(filePath.toString());
