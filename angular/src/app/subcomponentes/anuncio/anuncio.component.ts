@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AnuncioComponent implements OnInit{
   anuncios: any[] = [];
-  modalVisible = false;
+  modalVisible = true;
   newAnuncio = {
     titulo: '',
     descripcion: '',

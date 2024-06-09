@@ -29,13 +29,4 @@ public class MsCursoApplication {
                 .license (new License().name("Apache 2.0").url("http://springdoc.org"))
         );
     }
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
-            }
-        };
-    }
 }
