@@ -1,4 +1,5 @@
-<app-alumnos></app-alumnos>
+<app-alumnos><div navbar-content>
+  <!-- TODO TU CRUD O CONTENIDO AQUI -->
 <div class="container mx-auto py-8">
   <div class="bg-gray-300 rounded-lg overflow-hidden shadow-md">
     <div class="px-6 py-4 bg-gray-100 text-white flex justify-between items-center">
@@ -14,6 +15,7 @@
             <th scope="col" class="px-6 py-3">Nombre</th>
             <th scope="col" class="px-6 py-3">Apellidos</th>
             <th scope="col" class="px-6 py-3">Teléfono</th>
+            <th scope="col" class="px-6 py-3">Dni</th>
             <th scope="col" class="px-6 py-3">Grado</th>
             <th scope="col" class="px-6 py-3">Acciones</th>
           </tr>
@@ -24,6 +26,7 @@
             <td class="px-6 py-4 font-medium text-black whitespace-nowrap">{{ estudiante.nombre }}</td>
             <td class="px-6 py-4 text-black">{{ estudiante.apellidos }}</td>
             <td class="px-6 py-4 text-black">{{ estudiante.telefono }}</td>
+            <td class="px-6 py-4 text-black">{{ estudiante.dni }}</td>
             <td class="px-6 py-4 text-black">{{ estudiante.grado }}</td>
             <td class="px-6 py-4 flex space-x-2">
               <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
@@ -40,3 +43,4 @@
     </div>
   </div>
 </div>
+</div></app-alumnos>

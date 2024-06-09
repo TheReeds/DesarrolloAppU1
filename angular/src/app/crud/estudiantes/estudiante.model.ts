@@ -3,5 +3,6 @@ export interface Estudiante {
   nombre: string;
   apellidos: string;
   telefono: string;
+  dni: string;
   grado: string;
 }

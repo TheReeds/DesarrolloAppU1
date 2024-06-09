@@ -1,39 +1,140 @@
-<nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <div class="flex-shrink-0 flex items-center">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC4uc0cqwWTm8DmtTEsYXLDO9DEt-kPHXSCXyLxLPg2w&s" alt="Logo" class="w-8 h-8 mr-2 hidden md:block">
-      <a href="#" class="font-bold text-xl hover:text-gray-300 py-2 px-4 rounded-lg transition duration-300 ease-in-out md:py-0 md:px-0">Colegio San Fernando</a>
+<!-- Dashboard Component -->
+
+<div class="flex h-screen bg-white">
+  <!-- Sidebar -->
+  <div *ngIf="isMenuOpen" class="menu-transicion flex-shrink-0 w-64 bg-Light gray">
+      <!-- Opciones del Menú -->
+      <nav class="space-y-2 font-medium  ">
+
+        <div class="cols grid col-span-1 justify-center text-center text-white bg-blue-700 transition duration-300 py-5" style="background-image: url('https://th.bing.com/th/id/OIP.NllQBmZgbbo4Nz2e6rjz4AHaHa?w=3000&h=3000&rs=1&pid=ImgDetMain');">
+          <div class="flex items-center justify-center mt-8 mb-8 w-46 h-8 rounded-lg">
+            <img
+              src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+              alt="Avatar user"
+              class="w-10 md:w-16 rounded-full mx-auto"
+            />
+          </div>
+          <div>
+            <h2
+              class="font-medium text-xs md:text-sm text-center text-teal-500"
+            >
+              Rennzo Cardenas
+            </h2>
+            <p class="text-xs text-gray-500 text-center">Administrator</p>
+          </div>
+       </div>
+       <div class="flex border border-gray-200 rounded-md focus-within:ring ring-teal-500">
+        <input type="text" class="w-full rounded-l-md px-2 py-3 text-sm text-gray-600 focus:outline-none" placeholder="Search" />
+        <button class="rounded-r-md px-2 py-3 hidden md:block">
+            <svg class="w-4 h-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
     </div>
-  <div (click)="cerrarSesion()" class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button type="button" class="text-white bg-violet-900 hover:bg-violet-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cerrar sesión</button>
-      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-        <span class="sr-only">Abrir menu</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        <a routerLink="/inicio" routerLinkActive="active" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
+            <!-- Icono para la primera opción -->
+
+            <svg class="w-6 h-6 mr-3" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
+              <g fill="currentColor" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-0.26712,0.00003 -0.52312,0.10694 -0.71094,0.29688l-10.08594,8.80078c-0.12774,0.09426 -0.20313,0.24359 -0.20312,0.40234c0,0.27614 0.22386,0.5 0.5,0.5h2.5v8c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-6h4v6c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-8h2.5c0.27614,0 0.5,-0.22386 0.5,-0.5c0.00001,-0.15876 -0.07538,-0.30808 -0.20312,-0.40234l-10.08008,-8.79492c-0.00194,-0.00196 -0.0039,-0.00391 -0.00586,-0.00586c-0.18782,-0.18994 -0.44382,-0.29684 -0.71094,-0.29687z"></path></g></g>
+              </svg>
+            Inicio
+        </a>
+          <!-- Repite este bloque para las otras opciones -->
+          <!-- ... -->
+
+          <a (click)="toggleSidebar()" routeLink="" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
+            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <!-- Icono de casa (home) -->
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3V21h14V8h-7V3z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v5l3 3m-6 0l-3-3m6 0"></path>
+          </svg>
+              Gestionar Recursos
+              <svg [ngClass]="{'transform rotate-180': sidebarOpen}" class="w-6 h-6 ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+          </a>
+          <nav *ngIf="sidebarOpen" class="text-center ">
+            <a routerLink="/estudiantes" routerLinkActive="active" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">Estudiantes</a>
+            <a routerLink="/cursos" routerLinkActive="active" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">Cursos</a>
+            <a routerLink="/profesores" routerLinkActive="active"  class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">Profesores</a>
+          </nav>
+          <a routerLink="/anuncios" routerLinkActive="active" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
+
+            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            Anuncios
+          </a>
+          <a (click)="toggleSidebar2()" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
+            <svg class="w-6 h-6 text-black mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM15 2v4a2 2 0 0 0 2 2h4"></path>
+            </svg>
+            Gestionar Documentacion
+            <svg [ngClass]="{'transform rotate-180': sidebarOpen2}" class="w-6 h-6 ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+          <nav *ngIf="sidebarOpen2" class="text-center ">
+            <a href="/solicitudes-carta" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">Solicitudes de carta</a>
+            <a href="/gestionar-documentacion" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">Gestion de documentos</a>
+          </nav>
+
+
+          <a (click)="toggleSidebar3()" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
+            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+            Gestionar Supervisores
+            <svg [ngClass]="{'transform rotate-180': sidebarOpen3}" class="w-6 h-6 ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+          <nav *ngIf="sidebarOpen3" class="text-center ">
+            <a href="/gestion-supervisores" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">Gestion supervisores</a>
+            <a href="/asignar-supervisores" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">Asignar supervisores</a>
+          </nav>
+          <a href="/generar-informeconsolidado" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
+            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+            Generar Informe consolidado
+          </a>
+          <a href="/opciones" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
+            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="icomoon-ignore">
+              </g>
+              <path d="M17.599 3.738v2.598l0.8 0.207c0.905 0.234 1.768 0.597 2.566 1.081l0.715 0.434 1.86-1.86 2.262 2.262-1.888 1.888 0.407 0.708c0.451 0.785 0.788 1.635 1.002 2.527l0.196 0.817h2.744v3.199h-2.806l-0.216 0.782c-0.233 0.844-0.583 1.654-1.040 2.406l-0.434 0.716 2.036 2.035-2.262 2.262-2.064-2.064-0.707 0.407c-0.734 0.422-1.531 0.745-2.368 0.961l-0.8 0.206v2.951h-3.199v-2.951l-0.8-0.206c-0.837-0.216-1.634-0.539-2.368-0.961l-0.708-0.407-2.064 2.064-2.262-2.262 2.036-2.035-0.434-0.716c-0.457-0.753-0.807-1.562-1.040-2.406l-0.216-0.782h-2.806v-3.199h2.744l0.196-0.817c0.213-0.891 0.551-1.742 1.002-2.527l0.407-0.708-1.888-1.888 2.262-2.262 1.86 1.86 0.715-0.434c0.798-0.484 1.661-0.848 2.566-1.081l0.8-0.207v-2.598h3.199zM16 20.799c2.646 0 4.798-2.153 4.798-4.799s-2.152-4.799-4.798-4.799-4.798 2.153-4.798 4.799c0 2.646 2.152 4.799 4.798 4.799zM18.666 2.672h-5.331v2.839c-1.018 0.263-1.975 0.67-2.852 1.202l-2.022-2.022-3.769 3.77 2.065 2.065c-0.498 0.867-0.875 1.81-1.114 2.809h-2.97v5.331h3.060c0.263 0.953 0.655 1.85 1.156 2.676l-2.198 2.198 3.769 3.77 2.241-2.241c0.816 0.469 1.7 0.828 2.633 1.069v3.191h5.331v-3.191c0.933-0.241 1.817-0.6 2.633-1.069l2.241 2.241 3.769-3.77-2.198-2.198c0.501-0.826 0.893-1.723 1.156-2.676h3.060v-5.331h-2.97c-0.239-0.999-0.616-1.941-1.114-2.809l2.065-2.065-3.769-3.77-2.022 2.022c-0.877-0.532-1.834-0.939-2.852-1.202v-2.839h-0zM16 19.733c-2.062 0-3.732-1.671-3.732-3.733s1.67-3.732 3.732-3.732 3.732 1.671 3.732 3.732c0 2.062-1.67 3.733-3.732 3.733v0z"/>
+          </svg>
+            Opciones
+          </a>
+          <a (click)="cerrarSesion()" class="flex items-center px-6 py-3 cursor-pointer text-black hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out">
+            <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 -0.5 25 25" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.75 9.874C11.75 10.2882 12.0858 10.624 12.5 10.624C12.9142 10.624 13.25 10.2882 13.25 9.874H11.75ZM13.25 4C13.25 3.58579 12.9142 3.25 12.5 3.25C12.0858 3.25 11.75 3.58579 11.75 4H13.25ZM9.81082 6.66156C10.1878 6.48991 10.3542 6.04515 10.1826 5.66818C10.0109 5.29121 9.56615 5.12478 9.18918 5.29644L9.81082 6.66156ZM5.5 12.16L4.7499 12.1561L4.75005 12.1687L5.5 12.16ZM12.5 19L12.5086 18.25C12.5029 18.25 12.4971 18.25 12.4914 18.25L12.5 19ZM19.5 12.16L20.2501 12.1687L20.25 12.1561L19.5 12.16ZM15.8108 5.29644C15.4338 5.12478 14.9891 5.29121 14.8174 5.66818C14.6458 6.04515 14.8122 6.48991 15.1892 6.66156L15.8108 5.29644ZM13.25 9.874V4H11.75V9.874H13.25ZM9.18918 5.29644C6.49843 6.52171 4.7655 9.19951 4.75001 12.1561L6.24999 12.1639C6.26242 9.79237 7.65246 7.6444 9.81082 6.66156L9.18918 5.29644ZM4.75005 12.1687C4.79935 16.4046 8.27278 19.7986 12.5086 19.75L12.4914 18.25C9.08384 18.2892 6.28961 15.5588 6.24995 12.1513L4.75005 12.1687ZM12.4914 19.75C16.7272 19.7986 20.2007 16.4046 20.2499 12.1687L18.7501 12.1513C18.7104 15.5588 15.9162 18.2892 12.5086 18.25L12.4914 19.75ZM20.25 12.1561C20.2345 9.19951 18.5016 6.52171 15.8108 5.29644L15.1892 6.66156C17.3475 7.6444 18.7376 9.79237 18.75 12.1639L20.25 12.1561Z" fill="#000000"/>
+            </svg>
+            Cerrar sesión
+          </a>
+
+
+
+      </nav>
+  </div>
+
+  <!-- Contenido del Dashboard -->
+  <div class="flex-1 p-4 navbar-content overflow-auto" style="background-image: url('https://i.redd.it/5mqp7trvxov51.jpg'); background-size: cover; background-position: center;">
+    <!-- Contenido principal del dashboard -->
+    <div class="content-container rounded max-h-screen overflow-y-auto p-4 ">
+      <!-- Contenido principal del dashboard -->
+      <button (click)="toggleMenu()" >
+        <svg [ngClass]="{'transform rotate-180': isMenuOpen}" class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path fill="currentColor" d="M3 12a1 1 0 0 1 1-1h14.293l-3.646-3.646a1 1 0 0 1 1.414-1.414l5 5a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414-1.414L18.293 12H4a1 1 0 0 1-1-1z"/>
         </svg>
-    </button>
+      </button>
+      <ng-content select="[navbar-content]"></ng-content>
+    </div>
   </div>
-  <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-    <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-      <li>
-        <a routerLink="/inicio" routerLinkActive="active" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Inicio</a>
-      </li>
-      <li>
-        <a routerLink="/estudiantes" routerLinkActive="active" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Estudiantes</a>
-      </li>
-      <li>
-        <a routerLink="/cursos" routerLinkActive="active" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Cursos</a>
-      </li>
-      <li>
-        <a routerLink="/profesores" routerLinkActive="active" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Profesores</a>
-      </li>
-    </ul>
-  </div>
-  </div>
-</nav>
-<div class="container mx-auto mb-8 px-4">
-  <div class="mx-8 py-8">
-    <router-outlet></router-outlet>
-  </div>
+
 </div>
 

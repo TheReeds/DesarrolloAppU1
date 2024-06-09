@@ -1,0 +1,66 @@
+<app-alumnos>
+  <div navbar-content>
+    <!-- Botón para abrir el modal de crear anuncio -->
+    <button (click)="showModal()" class="btn btn-primary">Crear Nuevo Anuncio</button>
+
+    <!-- Modal para crear un nuevo anuncio -->
+    <div class="modal" [ngClass]="{'is-active': modalVisible}">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Crear Nuevo Anuncio</p>
+          <button class="delete" aria-label="close" (click)="hideModal()"></button>
+        </header>
+        <section class="modal-card-body">
+          <form (ngSubmit)="createAnuncio()">
+            <div class="field">
+              <label class="label">Título</label>
+              <div class="control">
+                <input class="input" type="text" [(ngModel)]="newAnuncio.titulo" name="titulo" required>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Descripción</label>
+              <div class="control">
+                <textarea class="textarea" [(ngModel)]="newAnuncio.descripcion" name="descripcion" required></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Imagen</label>
+              <div class="control">
+                <input class="input" type="file" (change)="onFileSelected($event)" required>
+              </div>
+            </div>
+            <button class="button is-primary" type="submit">Crear</button>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <!-- Tarjetas de anuncios -->
+    <div class="columns is-multiline">
+      <div class="column is-one-third" *ngFor="let anuncio of anuncios">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img [src]="getImageUrl(anuncio.nombreImagen)" alt="{{ anuncio.titulo }}">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">{{ anuncio.titulo }}</p>
+                <p class="subtitle is-6">{{ anuncio.descripcion }}</p>
+              </div>
+            </div>
+            <div class="content">
+              <p>Fecha de Creación: {{ anuncio.fechaCreacion | date }}</p>
+              <button (click)="deleteAnuncio(anuncio.id)" class="button is-danger">Eliminar</button>
+              <button (click)="editAnuncio(anuncio)" class="button is-info">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-alumnos>

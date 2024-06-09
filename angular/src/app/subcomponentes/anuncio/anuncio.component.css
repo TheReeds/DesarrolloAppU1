@@ -1,0 +1,7 @@
+.modal {
+  display: none;
+}
+
+.modal.is-active {
+  display: block;
+}
