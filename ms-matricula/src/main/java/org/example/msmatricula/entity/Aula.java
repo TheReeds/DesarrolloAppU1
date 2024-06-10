@@ -26,7 +26,7 @@ public class Aula {
     @JoinColumn(name = "profesor_id")
     private Profesor profesor;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "aula_id")
     private List<AulaAlumnos> alumnos;
 

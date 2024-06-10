@@ -10,6 +10,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { AnuncioComponent } from './subcomponentes/anuncio/anuncio.component';
 import { MatriculasComponent } from './gestionmatriculas/matriculas/matriculas.component';
 import { AulasComponent } from './gestionmatriculas/aulas/aulas.component';
+import { GradosComponent } from './gestionacademica/grados/grados.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'anuncios', component: AnuncioComponent, canActivate: [authGuard]},
   { path: 'matriculas', component: MatriculasComponent, canActivate: [authGuard]},
   { path: 'aulas', component: AulasComponent, canActivate: [authGuard]},
+  { path: 'grados', component: GradosComponent, canActivate: [authGuard]},
 
   { path: '', redirectTo: '/login', pathMatch: 'full'}
 ];

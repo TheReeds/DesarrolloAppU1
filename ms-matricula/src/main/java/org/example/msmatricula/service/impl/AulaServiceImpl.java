@@ -175,7 +175,32 @@ public class AulaServiceImpl implements AulaService {
     public void deleteAulaById(Integer id) {
         Optional<Aula> optionalAula = aulaRepository.findById(id);
         if (optionalAula.isPresent()) {
-            aulaRepository.deleteById(id);
+            Aula aula = optionalAula.get();
+
+            // Desvincular las relaciones del aula con alumnos, curso y profesor
+            aula.getAlumnos().clear();
+            aula.setCurso(null);
+            aula.setProfesor(null);
+            aulaRepository.save(aula); // Guardar cambios para reflejar la desvinculación
+
+            aulaRepository.deleteById(id); // Ahora eliminar el aula
+
+            // Eliminar curso y profesor si ya no están referenciados por ninguna otra entidad
+            Curso curso = aula.getCurso();
+            if (curso != null) {
+                List<Aula> aulasConElCurso = aulaRepository.findByCurso(curso);
+                if (aulasConElCurso.isEmpty()) {
+                    cursoRepository.deleteById(curso.getId());
+                }
+            }
+
+            Profesor profesor = aula.getProfesor();
+            if (profesor != null) {
+                List<Aula> aulasConElProfesor = aulaRepository.findByProfesor(profesor);
+                if (aulasConElProfesor.isEmpty()) {
+                    profesorRepository.deleteById(profesor.getId());
+                }
+            }
         } else {
             throw new RuntimeException("Aula no encontrada con el id: " + id);
         }

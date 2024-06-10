@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/grado")
@@ -24,8 +25,14 @@ public class GradoController {
         return  ResponseEntity.ok(gradoService.guardar(grado));
     }
     @PutMapping("/{id}")
-    public  ResponseEntity<Grado> update(@RequestBody Grado grado){
-        return ResponseEntity.ok(gradoService.actualizar(grado));
+    public ResponseEntity<Grado> update(@PathVariable Integer id, @RequestBody Grado grado) {
+        Optional<Grado> optionalGrado = gradoService.listarPorId(id);
+        if (!optionalGrado.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        grado.setId(id);  // Establecer el ID del grado a actualizar
+        Grado gradoActualizado = gradoService.actualizar(grado);
+        return ResponseEntity.ok(gradoActualizado);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Grado> listById(@PathVariable(required = true) Integer id){
