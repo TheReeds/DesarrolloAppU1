@@ -1,28 +1,28 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnuncioService {
-  private apiUrl = 'http://localhost:8085/anuncios';
+  private baseUrl = 'http://localhost:8085/anuncios';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAnuncios(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.baseUrl}`);
   }
 
   createAnuncio(formData: FormData): Observable<any> {
-    return this.http.post<any>(this.apiUrl, formData);
+    return this.http.post<any>(`${this.baseUrl}`, formData);
   }
 
   deleteAnuncio(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
-  editAnuncio(id: number, formData: FormData): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, formData);
+  updateAnuncio(id: number, formData: FormData): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${id}`, formData);
   }
 }

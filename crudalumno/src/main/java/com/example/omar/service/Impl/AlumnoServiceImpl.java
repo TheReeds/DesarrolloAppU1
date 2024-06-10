@@ -24,12 +24,14 @@ public class AlumnoServiceImpl implements AlumnoService {
     @Override
     public List<Alumno> listar() {
         List<Alumno> alumnos = alumnoRepository.findAll();
-        for (Alumno alumno : alumnos){
-            ResponseEntity<UserDto> userDtoResponseEntity = userFeign.listById(alumno.getUsuarioId());
-            if (userDtoResponseEntity.getStatusCode() == HttpStatus.OK) {
-                alumno.setUsuarioDto(userDtoResponseEntity.getBody());
-            } else {
-                // Manejar el error si la solicitud no fue exitosa
+        for (Alumno alumno : alumnos) {
+            if (alumno.getUsuarioId() != null) {
+                ResponseEntity<UserDto> userDtoResponseEntity = userFeign.listById(alumno.getUsuarioId());
+                if (userDtoResponseEntity.getStatusCode() == HttpStatus.OK) {
+                    alumno.setUsuarioDto(userDtoResponseEntity.getBody());
+                } else {
+                    // Manejar el error si la solicitud no fue exitosa
+                }
             }
         }
         return alumnos;

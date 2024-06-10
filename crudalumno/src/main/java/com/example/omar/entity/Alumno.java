@@ -17,7 +17,8 @@ public class Alumno {
     private boolean estado;
     @ManyToOne
     private Grado grado;
-    private int usuarioId;
+    @Column(nullable = true)
+    private Integer usuarioId;
     @Transient
     @MapsId
     @JoinColumn(name = "id_estudiante")
@@ -26,5 +27,6 @@ public class Alumno {
         this.grado = new Grado();
         this.grado.setId(1);
         this.estado = false; // Inicialmente false
+        this.usuarioId = null;
     }
 }

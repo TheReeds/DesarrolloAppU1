@@ -18,19 +18,26 @@ import java.util.function.Function;
 public class JwtService {
     private static final String SECRET_KEY = "4c05bb017ba37d8aac9e6380f1d8e6d102495d2a33b5d21f1aa5a01da99d21a3";
 
-    public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(UserDetails userDetails, Integer userId) {
+        Map<String, Object> extraclaims = new HashMap<>();
+        extraclaims.put("userId", userId);
+        return generateToken(extraclaims, userDetails);
     }
-    public String generateToken(Map<String, Object> extraclaims, UserDetails userDetails){
-        return Jwts.builder().setClaims(extraclaims)
+
+    public String generateToken(Map<String, Object> extraclaims, UserDetails userDetails) {
+        return Jwts.builder()
+                .setClaims(extraclaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 1 día
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
     public String getUserName(String token){
         return getClaim(token, Claims::getSubject);
+    }
+    public Integer getUserId(String token) {
+        return getClaim(token, claims -> (Integer) claims.get("userId"));
     }
     public <T>T getClaim(String token, Function<Claims,T> ClaimsResolver){
         final Claims claims = getAllClaims(token);

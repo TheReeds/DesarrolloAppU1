@@ -1,0 +1,97 @@
+<app-alumnos>
+  <div navbar-content>
+    <div class="mx-auto p-5 sm:p-10 md:p-16">
+      <button (click)="showModal()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Crear Nueva Aula</button>
+
+      <div class="container mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96" *ngFor="let aula of aulas">
+            <div class="p-6">
+              <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                {{ aula.nombre }}
+              </h5>
+              <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+                Curso: {{ aula.curso.nombre }}
+              </p>
+              <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+                Profesor: {{ aula.profesor.nombre }}
+              </p>
+            </div>
+            <div class="p-6 pt-0 flex space-x-4">
+              <button (click)="showAlumnos(aula.id)"
+                class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+                Ver Aula
+              </button>
+              <button (click)="deleteAula(aula.id)"
+                class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-500 text-white shadow-md shadow-red-500/10 hover:shadow-lg hover:shadow-red-500/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overlay" [ngClass]="{'is-active': modalVisible}" (click)="hideModal()">
+        <div class="modal-card formulario" (click)="$event.stopPropagation()">
+          <header class="modal-card-head">
+            <p class="modal-card-title py-2 px-2 bg-blue-700 text-white rounded-sm font-semibold">Crear nueva aula</p>
+            <button class="delete" aria-label="close" (click)="hideModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <form (ngSubmit)="createAula()">
+              <div class="field">
+                <label class="label">Nombre del Aula</label>
+                <div class="control">
+                  <input class="input full-width" type="text" [(ngModel)]="newAula.nombre" name="nombre" required>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Curso</label>
+                <div class="control">
+                  <select class="input full-width" [(ngModel)]="newAula.cursoId" name="cursoId" required>
+                    <option *ngFor="let curso of cursos" [ngValue]="curso.id">{{ curso.nombre }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Alumnos</label>
+                <div class="control">
+                  <div *ngFor="let alumno of alumnos">
+                    <input type="checkbox" [(ngModel)]="alumno.selected" [ngModelOptions]="{standalone: true}">
+                    {{ alumno.nombre }} {{ alumno.apellidos }}
+                  </div>
+                </div>
+              </div>
+              <div class="buttons mt-4">
+                <button class="button is-primary py-2 px-4 mx-1 rounded-md bg-green-700 text-white font-semibold hover:bg-slate-200" type="submit">Crear</button>
+                <button (click)="hideModal()" class="button is-secondary py-2 px-4 mx-1 rounded-md bg-red-700 text-white font-semibold hover:bg-slate-200" type="button">Cerrar</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+
+      <div class="overlay" [ngClass]="{'is-active': viewModalVisible}" (click)="hideViewModal()">
+        <div class="modal-card formulario" (click)="$event.stopPropagation()">
+          <header class="modal-card-head">
+            <p class="modal-card-title py-2 px-2 bg-blue-700 text-white rounded-sm font-semibold">Detalle del Aula</p>
+            <button class="delete" aria-label="close" (click)="hideViewModal()"></button>
+          </header>
+          <section class="modal-card-body px-1 py-1 bg-slate-600 text-white font-medium">
+            <h5>Nombre: {{ selectedAula?.nombre }}</h5>
+            <p>Curso: {{ selectedAula?.curso?.nombre }}</p>
+            <p>Profesor: {{ selectedAula?.profesor?.nombre }}</p>
+            <h6 class="bg-blue-600 px-1 py-1">Alumnos:</h6>
+            <ul class="px-2 py-1 bg-white text-black">
+              <li *ngFor="let alumno of selectedAula?.alumnos">
+                {{ alumno.alumno.nombre }} {{ alumno.alumno.apellidos }}
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <app-notificationc></app-notificationc>
+    </div>
+  </div>
+</app-alumnos>

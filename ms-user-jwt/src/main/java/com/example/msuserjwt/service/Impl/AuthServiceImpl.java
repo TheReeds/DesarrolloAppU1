@@ -35,9 +35,11 @@ public class AuthServiceImpl implements AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .profileImageUrl(defaultProfileImageUrl) // Asignar imagen por defecto
+                .alumnoId(request.getAlumnoId())
+                .profesorId(request.getProfesorId())
                 .build();
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user, user.getId());
         return AuthResponse.builder()
                 .token(jwtToken).build();
     }
@@ -51,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
                 )
         );
         var user = userRepository.findUserByEmail(request.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user, user.getId());
         return AuthResponse.builder()
                 .token(jwtToken).build();
     }

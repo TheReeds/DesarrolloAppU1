@@ -12,4 +12,5 @@ public interface AnuncioService {
     Anuncio findById(Integer id);
     Anuncio save(String titulo, String descripcion, MultipartFile file);
     void deleteById(Integer id);
+    Anuncio update(Integer id, String titulo, String descripcion, MultipartFile file);
 }

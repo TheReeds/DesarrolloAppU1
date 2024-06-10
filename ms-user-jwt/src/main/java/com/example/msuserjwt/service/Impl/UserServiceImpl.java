@@ -21,11 +21,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User actualizar(User user) {
+        // Debug log
+        System.out.println("Saving user: " + user);
         return userRepository.save(user);
     }
 
     @Override
     public Optional<User> listarPorId(Integer id) {
         return userRepository.findById(id);
+    }
+    public User getUserById(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

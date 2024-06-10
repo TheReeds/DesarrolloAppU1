@@ -23,16 +23,26 @@ public class ProfesoresController {
     }
     @GetMapping("/{id}")
     public  ResponseEntity<Profesores> busacarPorId(@PathVariable(required = true) Integer id){
-        return ResponseEntity.ok(profesoresService.buscarPorId(id));
+        return ResponseEntity.ok(profesoresService.buscarPorId(id).get());
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Profesores> editar(@PathVariable(required = true) Integer id, @RequestBody Profesores profesores){
-        profesores.setId(id);
-        return  ResponseEntity.ok(profesoresService.editar(profesores));
+    public ResponseEntity<Profesores> editar(@PathVariable Integer id, @RequestBody Profesores profesores) {
+        Profesores existingProfesor = profesoresService.buscarPorId(id).orElse(null);
+        if (existingProfesor == null) {
+            return ResponseEntity.notFound().build();
+        }
+        existingProfesor.setNombre(profesores.getNombre());
+        existingProfesor.setDni(profesores.getDni());
+        existingProfesor.setEspecialidad(profesores.getEspecialidad());
+        existingProfesor.setTelefono(profesores.getTelefono());
+        existingProfesor.setUsuarioId(profesores.getUsuarioId());
+        profesoresService.editar(existingProfesor);
+        return ResponseEntity.ok(existingProfesor);
     }
     @DeleteMapping("/{id}")
     public String eliminar(@PathVariable(required = true) Integer id){
         profesoresService.eliminar(id);
         return "Eliminacion completa";
     }
+
 }

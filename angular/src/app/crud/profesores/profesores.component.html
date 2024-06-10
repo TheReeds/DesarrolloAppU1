@@ -22,7 +22,8 @@
         </thead>
         <tbody>
           <!-- Iterar sobre los profesores -->
-          <tr *ngFor="let profesor of profesores" class="border-b bg-gray-100 border-gray-700 hover:bg-gray-700">
+          @for (profesor of profesores; track profesor.id){
+          <tr class="border-b bg-gray-100 border-gray-700 hover:bg-gray-700">
             <td class="px-6 py-4 font-medium text-black whitespace-nowrap">{{ profesor.nombre }}</td>
             <td class="px-6 py-4 text-black">{{ profesor.dni }}</td>
             <td class="px-6 py-4 text-black">{{ profesor.especialidad }}</td>
@@ -37,6 +38,7 @@
               </button>
             </td>
           </tr>
+        }
           <!-- Fin de la iteración -->
         </tbody>
       </table>

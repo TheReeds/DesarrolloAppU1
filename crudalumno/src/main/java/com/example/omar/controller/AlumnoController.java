@@ -25,8 +25,20 @@ public class AlumnoController {
         return  ResponseEntity.ok(alumnoService.guardar(alumno));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Alumno> update(@RequestBody Alumno curso) {
-        return ResponseEntity.ok(alumnoService.actualizar(curso));
+    public ResponseEntity<Alumno> update(@PathVariable Integer id, @RequestBody Alumno alumno) {
+        Alumno existingAlumno = alumnoService.listarPorId(id).orElse(null);
+        if (existingAlumno == null) {
+            return ResponseEntity.notFound().build();
+        }
+        existingAlumno.setNombre(alumno.getNombre());
+        existingAlumno.setApellidos(alumno.getApellidos());
+        existingAlumno.setTelefono(alumno.getTelefono());
+        existingAlumno.setDni(alumno.getDni());
+        existingAlumno.setEstado(alumno.isEstado());
+        existingAlumno.setUsuarioId(alumno.getUsuarioId());
+        existingAlumno.setGrado(alumno.getGrado());
+        alumnoService.actualizar(existingAlumno);
+        return ResponseEntity.ok(existingAlumno);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Alumno> listById(@PathVariable(required = true) Integer id){

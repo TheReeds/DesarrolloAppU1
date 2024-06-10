@@ -1,19 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+// anuncios.component.ts
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlumnosComponent } from '../../alumnos/alumnos.component';
 import { AnuncioService } from './anuncio.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NotificationcComponent } from '../../alerts/notificationc/notificationc.component';
 
 @Component({
   selector: 'app-anuncio',
   standalone: true,
-  imports: [AlumnosComponent, CommonModule, FormsModule],
+  imports: [AlumnosComponent, CommonModule, FormsModule, NotificationcComponent],
   templateUrl: './anuncio.component.html',
-  styleUrl: './anuncio.component.css'
+  styleUrls: ['./anuncio.component.css']
 })
-export class AnuncioComponent implements OnInit{
+export class AnuncioComponent implements OnInit {
+  @ViewChild(NotificationcComponent) notification: NotificationcComponent | null = null;
   anuncios: any[] = [];
-  modalVisible = true;
+  modalVisible = false;
+  isEdit = false;
+  anuncioToEdit: any = null;
   newAnuncio = {
     titulo: '',
     descripcion: '',
@@ -35,14 +40,30 @@ export class AnuncioComponent implements OnInit{
   getImageUrl(nombreImagen: string): string {
     return `http://localhost:8085/anuncios/uploads/${nombreImagen}`;
   }
-  showModal() {
+
+  showModal(editing = false, anuncio: any = null) {
     this.modalVisible = true;
+    this.isEdit = editing;
+    if (editing && anuncio) {
+      this.anuncioToEdit = anuncio;
+      this.newAnuncio = {
+        titulo: anuncio.titulo,
+        descripcion: anuncio.descripcion,
+        file: null
+      };
+    } else {
+      this.resetNewAnuncio();
+    }
+  }
+  closeModal() {
+    this.modalVisible = false;
   }
 
   hideModal() {
     this.modalVisible = false;
     this.resetNewAnuncio();
   }
+
   resetNewAnuncio() {
     this.newAnuncio = {
       titulo: '',
@@ -50,12 +71,13 @@ export class AnuncioComponent implements OnInit{
       file: null
     };
   }
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
     this.newAnuncio.file = file;
   }
 
-  createAnuncio() {
+  createOrEditAnuncio() {
     const formData = new FormData();
     formData.append('titulo', this.newAnuncio.titulo);
     formData.append('descripcion', this.newAnuncio.descripcion);
@@ -63,20 +85,34 @@ export class AnuncioComponent implements OnInit{
       formData.append('file', this.newAnuncio.file);
     }
 
-    this.anuncioService.createAnuncio(formData).subscribe(() => {
-      this.loadAnuncios();
-      this.hideModal();
-    });
+    if (this.isEdit && this.anuncioToEdit) {
+      this.anuncioService.updateAnuncio(this.anuncioToEdit.id, formData).subscribe(() => {
+        this.loadAnuncios();
+        this.closeModal();
+        if (this.notification) {
+          this.notification.show('Anuncio actualizado con éxito');
+        }
+      });
+    } else {
+      this.anuncioService.createAnuncio(formData).subscribe(() => {
+        this.loadAnuncios();
+        this.closeModal();
+        if (this.notification) {
+          this.notification.show('Anuncio creado con éxito');
+        }
+      });
+    }
   }
-
   deleteAnuncio(id: number) {
     this.anuncioService.deleteAnuncio(id).subscribe(() => {
       this.loadAnuncios();
+      if (this.notification) {
+        this.notification.show('Anuncio eliminado con éxito');
+      }
     });
   }
 
   editAnuncio(anuncio: any) {
-    // Aquí puedes implementar la lógica para editar un anuncio
-    // por ejemplo, abrir otro modal para editar el anuncio seleccionado.
+    this.showModal(true, anuncio);
   }
 }

@@ -60,6 +60,18 @@ public class AnuncioController {
         anuncioService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Anuncio> updateAnuncio(
+            @PathVariable Integer id,
+            @RequestParam("titulo") String titulo,
+            @RequestParam("descripcion") String descripcion,
+            @RequestParam(value = "file", required = false) MultipartFile file) {
+
+        Anuncio updatedAnuncio = anuncioService.update(id, titulo, descripcion, file);
+        return ResponseEntity.ok(updatedAnuncio);
+    }
+
     @GetMapping("/uploads/{filename:.+}")
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
         try {

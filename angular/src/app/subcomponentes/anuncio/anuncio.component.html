@@ -1,66 +1,92 @@
 <app-alumnos>
   <div navbar-content>
-    <!-- Botón para abrir el modal de crear anuncio -->
-    <button (click)="showModal()" class="btn btn-primary">Crear Nuevo Anuncio</button>
-
-    <!-- Modal para crear un nuevo anuncio -->
-    <div class="modal" [ngClass]="{'is-active': modalVisible}">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Crear Nuevo Anuncio</p>
-          <button class="delete" aria-label="close" (click)="hideModal()"></button>
-        </header>
-        <section class="modal-card-body">
-          <form (ngSubmit)="createAnuncio()">
-            <div class="field">
-              <label class="label">Título</label>
-              <div class="control">
-                <input class="input" type="text" [(ngModel)]="newAnuncio.titulo" name="titulo" required>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Descripción</label>
-              <div class="control">
-                <textarea class="textarea" [(ngModel)]="newAnuncio.descripcion" name="descripcion" required></textarea>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Imagen</label>
-              <div class="control">
-                <input class="input" type="file" (change)="onFileSelected($event)" required>
-              </div>
-            </div>
-            <button class="button is-primary" type="submit">Crear</button>
-          </form>
-        </section>
-      </div>
-    </div>
-
-    <!-- Tarjetas de anuncios -->
-    <div class="columns is-multiline">
-      <div class="column is-one-third" *ngFor="let anuncio of anuncios">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img [src]="getImageUrl(anuncio.nombreImagen)" alt="{{ anuncio.titulo }}">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <p class="title is-4">{{ anuncio.titulo }}</p>
-                <p class="subtitle is-6">{{ anuncio.descripcion }}</p>
-              </div>
-            </div>
-            <div class="content">
-              <p>Fecha de Creación: {{ anuncio.fechaCreacion | date }}</p>
-              <button (click)="deleteAnuncio(anuncio.id)" class="button is-danger">Eliminar</button>
-              <button (click)="editAnuncio(anuncio)" class="button is-info">Editar</button>
-            </div>
-          </div>
+    <div class="mx-auto p-5 sm:p-10 md:p-16">
+      <!-- Botón para abrir el modal de crear anuncio -->
+      <div class="border-b mb-5 flex justify-between text-sm">
+        <div class="text-indigo-600 flex items-center pb-2 pr-2 border-b-2 border-indigo-600 uppercase">
+          <button (click)="showModal()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Crear Nuevo Anuncio</button>
         </div>
       </div>
+      <!-- Modal para crear o editar un anuncio -->
+      <div class="overlay" [ngClass]="{'is-active': modalVisible}" (click)="hideModal()">
+        <div class="modal-card formulario" (click)="$event.stopPropagation()">
+          <header class="modal-card-head">
+            <p class="modal-card-title py-2 px-2 bg-slate-700 text-white rounded-sm font-semibold">{{ isEdit ? 'Editar Anuncio' : 'Crear nuevo anuncio' }}</p>
+            <button class="delete" aria-label="close" (click)="hideModal()"></button>
+          </header>
+          <section class="modal-card-body">
+            <form (ngSubmit)="createOrEditAnuncio()">
+              <div class="field">
+                <label class="label">Título</label>
+                <div class="control">
+                  <input class="input full-width" type="text" [(ngModel)]="newAnuncio.titulo" name="titulo" required>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Descripción</label>
+                <div class="control">
+                  <textarea class="textarea full-width" [(ngModel)]="newAnuncio.descripcion" name="descripcion" required></textarea>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Imagen</label>
+                <div class="control">
+                  <input class="input full-width" type="file" (change)="onFileSelected($event)">
+                </div>
+              </div>
+              <div class="buttons mt-4">
+                <button class="button is-primary py-2 px-4 mx-1 rounded-sm" type="submit">{{ isEdit ? 'Guardar Cambios' : 'Crear' }}</button>
+                <button (click)="hideModal()" class="button is-secondary py-2 px-4 mx-1 rounded-md" type="button">Cerrar</button>
+              </div>
+            </form>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- Tarjetas de anuncios -->
+      <div class="container">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          @for (anuncio of anuncios; track anuncio.id){
+          <div class="grid">
+            <div class="rounded overflow-hidden shadow-lg flex flex-col">
+              <a href="#"></a>
+              <div class="relative">
+                <a>
+                  <img class="w-full" [src]="getImageUrl(anuncio.nombreImagen)" alt="{{ anuncio.titulo }}">
+                  <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>
+                </a>
+              </div>
+              <div class="px-6 py-4 mb-auto">
+                <a class="font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-2">
+                  Simplest {{ anuncio.titulo }}
+                </a>
+                <p class="text-gray-500 text-sm">{{ anuncio.descripcion }}</p>
+              </div>
+              <div class="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
+                <span href="#" class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
+                  <svg height="13px" width="13px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                    <g>
+                      <g>
+                        <path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M277.333,256 c0,11.797-9.536,21.333-21.333,21.333h-85.333c-11.797,0-21.333-9.536-21.333-21.333s9.536-21.333,21.333-21.333h64v-128 c0-11.797,9.536-21.333,21.333-21.333s21.333,9.536,21.333,21.333V256z"></path>
+                      </g>
+                    </g>
+                  </svg>
+                  <span class="ml-1">Fecha de Creación: {{ anuncio.fechaCreacion | date }}</span>
+                </span>
+                <span href="#" class="py-1 text-md font-regular text-gray-900 mr-1 flex flex-row items-center">
+                  <div class="buttons">
+                    <button (click)="deleteAnuncio(anuncio.id)" class="button is-danger py-2 px-2 rounded-md mx-2">Eliminar</button>
+                    <button (click)="editAnuncio(anuncio)" class="button is-info py-2 px-2 rounded-md">Editar</button>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+        }
+        </div>
+      </div>
+      <app-notificationc></app-notificationc>
     </div>
   </div>
 </app-alumnos>

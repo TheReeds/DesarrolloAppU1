@@ -14,7 +14,7 @@ public class Matricula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private int fechaMatriculacion;
+    private String fechaMatriculacion;
     private int alumnoId;
     private boolean estado = false;
     @Transient

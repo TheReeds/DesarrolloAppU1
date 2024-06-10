@@ -1,0 +1,14 @@
+<div class="notification" [ngClass]="{'is-visible': visible}">
+  <div class="notification-content">
+    <svg height="20px" width="20px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g>
+        <g>
+          <path d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M221.333,362.667
+          L106.667,248l30.165-30.165L221.333,302.336l153.835-153.835L405.333,179.2L221.333,362.667z"/>
+        </g>
+      </g>
+    </svg>
+    <span class="notification-message">{{ message }}</span>
+    <div class="notification__progress"></div>
+  </div>
+</div>

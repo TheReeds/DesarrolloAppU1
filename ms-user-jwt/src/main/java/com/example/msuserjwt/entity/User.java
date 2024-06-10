@@ -29,6 +29,8 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.ORDINAL)
     private Role role;
+    private Integer alumnoId; // Referencia a Alumno
+    private Integer profesorId; // Referencia a Profesor
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -51,7 +51,27 @@ public class AnuncioServiceImpl implements AnuncioService {
 
     @Override
     public void deleteById(Integer id) {
-        anuncioRepository.deleteById(id);
+        Anuncio anuncio = anuncioRepository.findById(id).orElse(null);
+        if (anuncio != null) {
+            deleteFile(anuncio.getNombreImagen()); // Eliminar el archivo asociado
+            anuncioRepository.deleteById(id);
+        }
+    }
+
+    @Override
+    public Anuncio update(Integer id, String titulo, String descripcion, MultipartFile file) {
+        Anuncio anuncio = anuncioRepository.findById(id).orElse(null);
+        if (anuncio == null) {
+            throw new RuntimeException("Anuncio no encontrado");
+        }
+        if (file != null && !file.isEmpty()) {
+            deleteFile(anuncio.getNombreImagen()); // Eliminar el archivo anterior
+            String fileName = storeFile(file);
+            anuncio.setNombreImagen(fileName);
+        }
+        anuncio.setTitulo(titulo);
+        anuncio.setDescripcion(descripcion);
+        return anuncioRepository.save(anuncio);
     }
 
     private String storeFile(MultipartFile file) {
@@ -68,6 +88,15 @@ public class AnuncioServiceImpl implements AnuncioService {
             return fileName;
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file.", e);
+        }
+    }
+
+    private void deleteFile(String fileName) {
+        try {
+            Path filePath = rootLocation.resolve(fileName);
+            Files.deleteIfExists(filePath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete file.", e);
         }
     }
 

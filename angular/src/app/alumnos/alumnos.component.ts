@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SidebarService } from './sidebar.service';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-alumnos',
   standalone: true,
@@ -10,17 +11,18 @@ import { SidebarService } from './sidebar.service';
   styleUrl: './alumnos.component.css'
 })
 export class AlumnosComponent {
-
-  constructor (private router: Router, private sidebarService: SidebarService){}
-
   sidebarOpen = false;
   sidebarOpen2 = false;
   sidebarOpen3 = false;
   userName: string | null = null;
   userRole: string | null = null;
+  userProfileImage: string | null = null;
+  userAdditionalInfo: string | null = null;
+  constructor (private router: Router, private sidebarService: SidebarService, private authService: AuthService){}
 
   ngOnInit() {
     this.loadSidebarState();
+    this.loadUserInfo();
   }
 
   toggleSidebar() {
@@ -69,5 +71,15 @@ export class AlumnosComponent {
   cerrarSesion() {
     localStorage.clear();
     this.router.navigate(['/login'])
+  }
+  loadUserInfo() {
+    this.authService.getUserInfo().subscribe(user => {
+      this.userName = user.alumnoDto ? `${user.alumnoDto.nombre} ${user.alumnoDto.apellidos}` :
+                      user.profesorDto ? `${user.profesorDto.nombre} ${user.profesorDto.apellidos}` :
+                      user.name;
+      this.userRole = user.role;
+      this.userProfileImage = `http://localhost:8085/usuarios/uploads/${user.profileImageUrl}`;
+      this.userAdditionalInfo = user.alumnoDto ? 'Alumno' : user.profesorDto ? 'Profesor' : 'Director';
+    });
   }
 }
