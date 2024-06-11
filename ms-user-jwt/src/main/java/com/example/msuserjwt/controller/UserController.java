@@ -4,6 +4,7 @@ import com.example.msuserjwt.config.JwtService;
 import com.example.msuserjwt.dto.AlumnoDto;
 import com.example.msuserjwt.dto.ProfesoresDto;
 import com.example.msuserjwt.dto.UserDto;
+import com.example.msuserjwt.entity.Role;
 import com.example.msuserjwt.entity.User;
 import com.example.msuserjwt.feign.AlumnoFeign;
 import com.example.msuserjwt.feign.ProfesorFeign;
@@ -190,4 +191,15 @@ public class UserController {
             throw new RuntimeException("Could not read file: " + filename, e);
         }
     }
+    @PutMapping("/{id}/role")
+    public ResponseEntity<User> updateRole(@PathVariable Integer id, @RequestParam Role role) {
+        User user = userService.listarPorId(id).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        user.setRole(role);
+        User updatedUser = userService.actualizar(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
 }

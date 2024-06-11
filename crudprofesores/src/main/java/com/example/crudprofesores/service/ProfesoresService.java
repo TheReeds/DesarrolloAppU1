@@ -11,4 +11,5 @@ public interface ProfesoresService {
     public Optional<Profesores> buscarPorId(Integer id);
     public Profesores editar(Profesores profesores);
     public void eliminar(Integer id);
+    public List<Profesores> listarSinUsuario();
 }

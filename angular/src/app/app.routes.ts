@@ -11,6 +11,7 @@ import { AnuncioComponent } from './subcomponentes/anuncio/anuncio.component';
 import { MatriculasComponent } from './gestionmatriculas/matriculas/matriculas.component';
 import { AulasComponent } from './gestionmatriculas/aulas/aulas.component';
 import { GradosComponent } from './gestionacademica/grados/grados.component';
+import { UsuariosComponent } from './gestionacademica/usuarios/usuarios.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'matriculas', component: MatriculasComponent, canActivate: [authGuard]},
   { path: 'aulas', component: AulasComponent, canActivate: [authGuard]},
   { path: 'grados', component: GradosComponent, canActivate: [authGuard]},
+  { path: 'usuarios', component: UsuariosComponent, canActivate: [authGuard]},
 
   { path: '', redirectTo: '/login', pathMatch: 'full'}
 ];

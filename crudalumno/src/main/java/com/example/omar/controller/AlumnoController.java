@@ -59,4 +59,8 @@ public class AlumnoController {
         alumnoRepository.save(alumno);
         return ResponseEntity.ok(alumno);
     }
+    @GetMapping("/sin-usuario")
+    public ResponseEntity<List<Alumno>> listSinUsuario() {
+        return ResponseEntity.ok().body(alumnoService.listarSinUsuario());
+    }
 }

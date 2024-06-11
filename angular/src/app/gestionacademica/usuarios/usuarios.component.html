@@ -1,0 +1,101 @@
+<app-alumnos>
+  <div navbar-content class="p-8">
+    <div class="container mx-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800">Gestión de Usuarios</h2>
+        <button (click)="showModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Crear Usuario
+        </button>
+      </div>
+
+      <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+        <table class="min-w-full leading-normal">
+          <thead>
+            <tr>
+              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Imagen
+              </th>
+              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Email
+              </th>
+              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Rol
+              </th>
+              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Asociación
+              </th>
+              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios">
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <img [src]="usuario.profileImageUrl" alt="Imagen de perfil" class="w-10 h-10 rounded-full">
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                {{ usuario.email }}
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                {{ usuario.role }}
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <span *ngIf="usuario.alumnoDto">Alumno</span>
+                <span *ngIf="usuario.profesorDto">Profesor</span>
+                <span *ngIf="!usuario.alumnoDto && !usuario.profesorDto">Sin Asociación</span>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <button (click)="editUsuario(usuario)" class="text-blue-600 hover:text-blue-900 mr-2">Editar</button>
+                <button (click)="deleteUsuario(usuario.id)" class="text-red-600 hover:text-red-900 mr-2">Eliminar</button>
+                <button (click)="asociarAlumnoOProfesor(usuario.id)" class="text-green-600 hover:text-green-900">Asociar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal -->
+      <div *ngIf="modalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold">{{ isEdit ? 'Editar Usuario' : 'Crear Usuario' }}</h3>
+            <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">&times;</button>
+          </div>
+          <form (ngSubmit)="createOrEditUsuario()">
+            <div class="mb-4">
+              <label class="block text-gray-700 font-bold mb-2">Nombre:</label>
+              <input type="text" [(ngModel)]="newUsuario.name" name="name" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 font-bold mb-2">Email:</label>
+              <input type="email" [(ngModel)]="newUsuario.email" name="email" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4" *ngIf="!isEdit">
+              <label class="block text-gray-700 font-bold mb-2">Contraseña:</label>
+              <input type="password" [(ngModel)]="newUsuario.password" name="password" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 font-bold mb-2">Rol:</label>
+              <select [(ngModel)]="newUsuario.role" name="role" class="w-full p-2 border rounded">
+                <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+              </select>
+            </div>
+            <div class="flex justify-end">
+              <button type="button" (click)="closeModal()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2">Cerrar</button>
+              <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{ isEdit ? 'Actualizar' : 'Crear' }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <app-asociar-modal *ngIf="asociarModalVisible"
+                         [alumnos]="alumnosSinUsuario"
+                         [profesores]="profesoresSinUsuario"
+                         (selectAlumno)="onSelectAlumno($event)"
+                         (selectProfesor)="onSelectProfesor($event)"
+                         (closeModal)="onCloseModal()">
+      </app-asociar-modal>
+    </div>
+  </div>
+</app-alumnos>

@@ -44,5 +44,9 @@ public class ProfesoresController {
         profesoresService.eliminar(id);
         return "Eliminacion completa";
     }
+    @GetMapping("/sin-usuario")
+    public ResponseEntity<List<Profesores>> listSinUsuario() {
+        return ResponseEntity.ok(profesoresService.listarSinUsuario());
+    }
 
 }

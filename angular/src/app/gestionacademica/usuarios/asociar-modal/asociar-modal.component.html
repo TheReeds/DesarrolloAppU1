@@ -1,0 +1,29 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h4 class="text-xl font-semibold">Asociar Alumno o Profesor</h4>
+      <button (click)="onClose()" class="text-gray-500 hover:text-gray-700">&times;</button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <h5 class="text-lg font-medium mb-2">Alumnos</h5>
+        <ul class="space-y-2">
+          <li *ngFor="let alumno of alumnos" (click)="onSelectAlumno(alumno.id)" class="p-2 border rounded cursor-pointer hover:bg-gray-100">
+            {{ alumno.nombre }} {{ alumno.apellidos }}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="text-lg font-medium mb-2">Profesores</h5>
+        <ul class="space-y-2">
+          <li *ngFor="let profesor of profesores" (click)="onSelectProfesor(profesor.id)" class="p-2 border rounded cursor-pointer hover:bg-gray-100">
+            {{ profesor.nombre }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex justify-end mt-4">
+      <button (click)="onClose()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+    </div>
+  </div>
+</div>

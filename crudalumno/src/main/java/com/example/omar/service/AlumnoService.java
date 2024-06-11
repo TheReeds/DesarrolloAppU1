@@ -11,4 +11,6 @@ public interface AlumnoService {
     public Alumno actualizar(Alumno alumno);
     public Optional<Alumno> listarPorId(Integer id);
     public void eliminarPorId(Integer id);
+    public List<Alumno> listarSinUsuario();
+
 }

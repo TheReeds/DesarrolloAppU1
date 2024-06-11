@@ -57,4 +57,9 @@ public class AlumnoServiceImpl implements AlumnoService {
         alumnoRepository.deleteById(id);
 
     }
+    @Override
+    public List<Alumno> listarSinUsuario() {
+        return alumnoRepository.findByUsuarioIdIsNull();
+    }
+
 }

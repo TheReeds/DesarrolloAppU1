@@ -62,4 +62,8 @@ public class ProfesoresServiceImpl implements ProfesoresService {
     public void eliminar(Integer id) {
         profesoresRepository.deleteById(id);
     }
+    @Override
+    public List<Profesores> listarSinUsuario() {
+        return profesoresRepository.findByUsuarioIdIsNull();
+    }
 }
