@@ -1,0 +1,28 @@
+/* curso.component.css */
+
+/* Personaliza las sombras y transiciones si es necesario */
+.custom-shadow {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.custom-transition {
+  transition: all 0.3s ease;
+}
+
+/* Estilo adicional para botones y hover */
+button {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+tr {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+tr:hover {
+  background-color: #f3f4f6; /* Tailwind gray-100 */
+  transform: scale(1.05);
+}

@@ -22,7 +22,8 @@ export class CursosComponent implements OnInit  {
   }
 
   obtenerCursos(): void {
-    this.cursosService.obtenerCursos()
-      .subscribe(cursos => this.cursos = cursos);
+    this.cursosService.obtenerCursos().subscribe((data: Curso[]) => {
+      this.cursos = data;
+    });
   }
 }

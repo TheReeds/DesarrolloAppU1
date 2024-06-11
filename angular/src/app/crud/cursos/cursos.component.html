@@ -1,44 +1,45 @@
-<app-alumnos><div navbar-content>
-  <!-- TODO TU CRUD O CONTENIDO AQUI -->
-<div class="container mx-auto py-8">
-  <div class="bg-gray-300 rounded-lg overflow-hidden shadow-md">
-    <div class="px-6 py-4 bg-gray-100 text-white flex justify-between items-center">
-      <h2 class="text-xl font-bold text-black">Cursos</h2>
-      <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-        Nuevo curso
-      </button>
-    </div>
-    <div class="px-6 py-4">
-      <table class="w-full text-sm text-left text-gray-200">
-        <thead class="text-xs uppercase bg-gray-700 text-gray-300">
-          <tr>
-            <th scope="col" class="px-6 py-3">Nombre</th>
-            <th scope="col" class="px-6 py-3">Descripción</th>
-            <th scope="col" class="px-6 py-3">Duración</th>
-            <th scope="col" class="px-6 py-3">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Iterar sobre los estudiantes -->
-          @for (curso of cursos; track curso.id){
-          <tr class="border-b bg-gray-100 border-gray-700 hover:bg-gray-700">
-            <td class="px-6 py-4 font-medium text-black whitespace-nowrap">{{ curso.nombre }}</td>
-            <td class="px-6 py-4 text-black">{{ curso.descripcion }}</td>
-            <td class="px-6 py-4 text-black">{{ curso.duracion }}</td>
-            <td class="px-6 py-4 flex space-x-2">
-              <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                Editar
-              </button>
-              <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-                Eliminar
-              </button>
-            </td>
-          </tr>
-        }
-          <!-- Fin de la iteración -->
-        </tbody>
-      </table>
+<app-alumnos>
+  <div navbar-content>
+    <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white flex flex-col sm:flex-row justify-between items-center">
+          <h2 class="text-2xl font-semibold mb-4 sm:mb-0">Cursos</h2>
+          <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
+            Nuevo curso
+          </button>
+        </div>
+        <div class="px-6 py-4 overflow-x-auto">
+          <table class="min-w-full text-sm text-left text-gray-700">
+            <thead class="text-xs uppercase bg-gray-100 text-gray-600">
+              <tr>
+                <th scope="col" class="px-6 py-3">Nombre</th>
+                <th scope="col" class="px-6 py-3">Descripción</th>
+                <th scope="col" class="px-6 py-3">Duración</th>
+                <th scope="col" class="px-6 py-3">Profesor</th>
+                <th scope="col" class="px-6 py-3">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Iterar sobre los cursos -->
+              <tr *ngFor="let curso of cursos" class="border-b bg-white hover:bg-gray-50 transition duration-300 transform hover:scale-105">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ curso.nombre }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ curso.descripcion }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ curso.duracion }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ curso.profesoresDto.nombre }}</td>
+                <td class="px-6 py-4 flex space-x-2">
+                  <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
+                    Editar
+                  </button>
+                  <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              <!-- Fin de la iteración -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div></app-alumnos>
+</app-alumnos>
