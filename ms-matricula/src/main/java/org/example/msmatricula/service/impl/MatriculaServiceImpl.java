@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MatriculaServiceImpl implements MatriculaService {
@@ -105,6 +106,7 @@ public class MatriculaServiceImpl implements MatriculaService {
     }
 
 
+
     @Override
     public void eliminar(Integer id) {
         Optional<Matricula> matriculaOptional = matriculaRepository.findById(id);
@@ -114,6 +116,9 @@ public class MatriculaServiceImpl implements MatriculaService {
 
             // Cambiar el estado del alumno a false
             alumnoFeign.actualizarEstado(alumnoId, false);
+
+            // Eliminar las notas del alumno
+            cursoFeign.eliminarNotasPorAlumnoId(alumnoId);
 
             // Eliminar la matrícula
             matriculaRepository.deleteById(id);
@@ -138,6 +143,7 @@ public class MatriculaServiceImpl implements MatriculaService {
         }
         return matriculas;
     }
+
     public ByteArrayInputStream exportToPdf() {
         List<Matricula> matriculas = listar();
         return pdfService.generateMatriculasPdf(matriculas);
@@ -151,4 +157,20 @@ public class MatriculaServiceImpl implements MatriculaService {
     public ByteArrayInputStream exportConstanciaMatriculaPdf(Matricula matricula) {
         return pdfService.generateConstanciaMatriculaPdf(matricula);
     }
+    @Override
+    public List<AlumnoDto> listarAlumnosPorCursoId(Integer cursoId) {
+        List<Matricula> matriculas = matriculaRepository.findByCursosCursoId(cursoId);
+        return matriculas.stream()
+                .map(matricula -> {
+                    ResponseEntity<AlumnoDto> alumnoResponse = alumnoFeign.listById(matricula.getAlumnoId());
+                    if (alumnoResponse.getStatusCode() == HttpStatus.OK) {
+                        return alumnoResponse.getBody();
+                    } else {
+                        throw new RuntimeException("Error al obtener el alumno con ID: " + matricula.getAlumnoId());
+                    }
+                })
+                .collect(Collectors.toList());
+    }
+
+
 }

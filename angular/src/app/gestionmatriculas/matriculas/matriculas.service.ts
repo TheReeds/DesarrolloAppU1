@@ -9,6 +9,7 @@ export class MatriculasService {
   private baseUrl = 'http://localhost:8085/matriculas';
   private cursosUrl = 'http://localhost:8085/cursos';
   private alumnosUrl = 'http://localhost:8085/alumno';
+  private baseUrl2 = "http://localhost:8085";
 
   constructor(private http: HttpClient) {}
 
@@ -39,5 +40,16 @@ export class MatriculasService {
 
   getAlumnos(): Observable<any[]> {
     return this.http.get<any[]>(this.alumnosUrl);
+  }
+
+  getGrados(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl2}/grado`);
+  }
+
+  getProfesores(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl2}/profesores`);
+  }
+  getAlumnosPorCurso(cursoId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/curso/${cursoId}/alumnos`);
   }
 }

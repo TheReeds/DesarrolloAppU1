@@ -10,5 +10,6 @@ public interface UserService {
     public User actualizar(User user);
     public Optional<User> listarPorId(Integer id);
     public User getUserById(Integer userId);
+    public void DeleteByID(Integer userId);
 
 }

@@ -48,8 +48,24 @@
               <div class="field">
                 <label class="label">Curso</label>
                 <div class="control">
-                  <select class="input full-width" [(ngModel)]="newAula.cursoId" name="cursoId" required>
+                  <select class="input full-width" [(ngModel)]="newAula.curso.id" name="cursoId" (change)="loadAlumnosPorCurso(newAula.curso.id)" required>
                     <option *ngFor="let curso of cursos" [ngValue]="curso.id">{{ curso.nombre }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Grado</label>
+                <div class="control">
+                  <select class="input full-width" [(ngModel)]="newAula.grado.id" name="gradoId" required>
+                    <option *ngFor="let grado of grados" [ngValue]="grado.id">{{ grado.nombre }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Profesor</label>
+                <div class="control">
+                  <select class="input full-width" [(ngModel)]="newAula.profesor.id" name="profesorId" required>
+                    <option *ngFor="let profesor of profesores" [ngValue]="profesor.id">{{ profesor.nombre }}</option>
                   </select>
                 </div>
               </div>
@@ -84,7 +100,7 @@
             <h6 class="bg-blue-600 px-1 py-1">Alumnos:</h6>
             <ul class="px-2 py-1 bg-white text-black">
               <li *ngFor="let alumno of selectedAula?.alumnos">
-                {{ alumno.alumno.nombre }} {{ alumno.alumno.apellidos }}
+                {{ alumno.nombre }} {{ alumno.apellidos }}
               </li>
             </ul>
           </section>

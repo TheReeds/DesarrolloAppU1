@@ -42,6 +42,9 @@ export class UsuariosComponent implements OnInit {
       this.usuarios = data;
     });
   }
+  getImageUrl(nombreImagen: string): string {
+    return `http://localhost:8085/usuarios/uploads/${nombreImagen}`;
+  }
 
   showModal(editing = false, usuario: any = null) {
     this.modalVisible = true;

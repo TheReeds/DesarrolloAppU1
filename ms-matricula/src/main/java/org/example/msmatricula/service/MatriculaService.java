@@ -1,5 +1,6 @@
 package org.example.msmatricula.service;
 
+import org.example.msmatricula.Dto.AlumnoDto;
 import org.example.msmatricula.entity.Matricula;
 
 import java.io.ByteArrayInputStream;
@@ -16,4 +17,5 @@ public interface MatriculaService {
     public ByteArrayInputStream exportToPdf();
     public ByteArrayInputStream exportToExcel();
     ByteArrayInputStream exportConstanciaMatriculaPdf(Matricula matricula);
+    public List<AlumnoDto> listarAlumnosPorCursoId(Integer cursoId);
 }

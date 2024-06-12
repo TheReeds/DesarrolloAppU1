@@ -16,7 +16,7 @@ export class UsuariosService {
   }
 
   createUsuario(usuario: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/register`, usuario);
+    return this.http.post<any>(`${this.baseUrl2}/auth/register`, usuario);
   }
 
   deleteUsuario(id: number): Observable<any> {

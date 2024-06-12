@@ -23,20 +23,21 @@ public class AulaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Aula>> getAllAulas() {
-        List<Aula> aulas = aulaService.getAllAulas();
+    public ResponseEntity<List<AulaDto>> getAllAulas() {
+        List<AulaDto> aulas = aulaService.getAllAulas();
         return ResponseEntity.ok(aulas);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aula> getAulaById(@PathVariable Integer id) {
-        Aula aula = aulaService.getAulaById(id);
+    public ResponseEntity<AulaDto> getAulaById(@PathVariable Integer id) {
+        AulaDto aula = aulaService.getAulaById(id);
         if (aula != null) {
             return ResponseEntity.ok(aula);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAula(@PathVariable Integer id) {
         aulaService.deleteAulaById(id);

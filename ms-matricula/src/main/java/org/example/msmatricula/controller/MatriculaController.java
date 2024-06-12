@@ -1,5 +1,6 @@
 package org.example.msmatricula.controller;
 
+import org.example.msmatricula.Dto.AlumnoDto;
 import org.example.msmatricula.entity.Matricula;
 import org.example.msmatricula.service.MatriculaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,10 @@ public class MatriculaController {
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(bis));
+    }
+    @GetMapping("/curso/{cursoId}/alumnos")
+    public ResponseEntity<List<AlumnoDto>> listarAlumnosPorCursoId(@PathVariable Integer cursoId) {
+        List<AlumnoDto> alumnos = matriculaService.listarAlumnosPorCursoId(cursoId);
+        return ResponseEntity.ok(alumnos);
     }
 }

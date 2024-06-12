@@ -11,28 +11,33 @@ import { MatriculasService } from '../matriculas/matriculas.service';
   standalone: true,
   imports: [AlumnosComponent, CommonModule, FormsModule, NotificationcComponent],
   templateUrl: './aulas.component.html',
-  styleUrl: './aulas.component.css'
+  styleUrls: ['./aulas.component.css']
 })
-export class AulasComponent {
+export class AulasComponent implements OnInit {
   @ViewChild(NotificationcComponent) notification: NotificationcComponent | null = null;
   aulas: any[] = [];
   alumnos: any[] = [];
   cursos: any[] = [];
+  grados: any[] = [];
+  profesores: any[] = [];
   modalVisible = false;
   viewModalVisible = false;
   selectedAula: any = null;
   newAula = {
     nombre: '',
-    cursoId: null,
-    alumnoIds: [] as number[]
+    grado: { id: null },
+    curso: { id: null },
+    profesor: { id: null },
+    alumnos: [] as { id: number }[]
   };
 
   constructor(private aulasService: AulasService, private matriculaService: MatriculasService) {}
 
   ngOnInit() {
     this.loadAulas();
-    this.loadAlumnos();
     this.loadCursos();
+    this.loadGrados();
+    this.loadProfesores();
   }
 
   loadAulas() {
@@ -41,18 +46,31 @@ export class AulasComponent {
     });
   }
 
-  loadAlumnos() {
-    this.matriculaService.getAlumnos().subscribe(data => {
-      this.alumnos = data.filter(alumno => alumno.estado);
-    });
+  loadAlumnosPorCurso(cursoId: number | null) {
+    if (cursoId !== null) {
+      this.matriculaService.getAlumnosPorCurso(cursoId).subscribe(data => {
+        this.alumnos = data.map(alumno => ({ ...alumno, selected: false }));
+      });
+    } else {
+      this.alumnos = [];
+    }
   }
 
   loadCursos() {
     this.matriculaService.getCursos().subscribe(data => {
-      this.cursos = data.map((curso: any) => ({
-        ...curso,
-        selected: false
-      }));
+      this.cursos = data;
+    });
+  }
+
+  loadGrados() {
+    this.matriculaService.getGrados().subscribe(data => {
+      this.grados = data;
+    });
+  }
+
+  loadProfesores() {
+    this.matriculaService.getProfesores().subscribe(data => {
+      this.profesores = data;
     });
   }
 
@@ -73,13 +91,15 @@ export class AulasComponent {
   resetNewAula() {
     this.newAula = {
       nombre: '',
-      cursoId: null,
-      alumnoIds: []
+      grado: { id: null },
+      curso: { id: null },
+      profesor: { id: null },
+      alumnos: []
     };
   }
 
   createAula() {
-    this.newAula.alumnoIds = this.alumnos.filter(alumno => alumno.selected).map(alumno => alumno.id);
+    this.newAula.alumnos = this.alumnos.filter(alumno => alumno.selected).map(alumno => ({ id: alumno.id }));
     this.aulasService.createAula(this.newAula).subscribe(() => {
       this.loadAulas();
       this.hideModal();

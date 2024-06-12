@@ -1,45 +1,92 @@
-.active{
-  color: #27c797;
+/* dashboard.component.css */
+
+/* Sidebar */
+.menu-transicion {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
 }
+.menu-transicion.ng-leave, .menu-transicion.ng-enter {
+  opacity: 0;
+}
+.menu-transicion.ng-leave-active, .menu-transicion.ng-enter-active {
+  transition-delay: 100ms;
+  transition-duration: 300ms;
+}
+.menu-transicion .active {
+  color: #27c797;
+  background-color: #1e293b; /* Color de fondo de los enlaces activos */
+}
+
+/* General Styles */
+h2 {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+}
+button {
+  background-color: #1e293b; /* Fondo gris oscuro */
+  color: white; /* Texto blanco */
+}
+button:hover {
+  background-color: #374151; /* Fondo gris más claro en hover */
+}
+nav a {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem; /* 12px */
+  border-radius: 0.375rem; /* 6px */
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+nav a:hover {
+  background-color: #4b5563; /* Fondo gris claro en hover */
+  color: white; /* Texto blanco en hover */
+}
+nav a svg {
+  margin-right: 0.75rem; /* 12px */
+}
+nav a.active {
+  background-color: #4b5563; /* Fondo gris claro */
+  color: #27c797; /* Texto del enlace activo */
+}
+nav a.active:hover {
+  background-color: #4b5563; /* Fondo gris claro */
+  color: #27c797; /* Texto del enlace activo */
+}
+
+/* Background Image */
 .with-background {
   background-image: url('https://plus.unsplash.com/premium_photo-1669927131902-a64115445f0f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2l0eSUyMG5pZ2h0fGVufDB8fDB8fHww');
   background-size: cover;
   background-position: center;
 }
+
+/* Content Container */
 .content-container {
-background-color: rgb(245, 245, 245);
-padding: 20px; /* Ajusta el espacio interior según sea necesario */
-border-radius: 8px; /* Opcional: agrega bordes redondeados */
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Opcional: agrega una sombra */
+  background-color: rgb(245, 245, 245);
+  padding: 20px; /* Ajusta el espacio interior según sea necesario */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
 }
+
+/* Fixed Menu */
 #menu {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-background-color: #333; /* Cambia esto según tu diseño */
-color: white;
-padding: 10px;
-z-index: 1000; /* Asegúrate de que tenga un índice de apilamiento alto para que esté por encima del contenido */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333; /* Color de fondo del menú */
+  color: white;
+  padding: 10px;
+  z-index: 1000; /* Asegúrate de que tenga un índice de apilamiento alto para que esté por encima del contenido */
 }
+
+/* Scrollbar */
 .scrollbar {
-position: fixed;
-bottom: 10px;
-right: 10px;
-width: 10px;
-height: 100px;
-background-color: #333; /* Cambia esto según tu diseño */
-opacity: 0.7;
-border-radius: 5px;
-}
-.menu-transicion{
-opacity: 1;
-transition: opacity 300ms ease-in-out, transform 300ms ease-in-out
-}
-.menu-transicion.ng-leave, .menu-transicion.ng-enter{
-opacity: 0;
-}
-.menu-transicion.ng-leave-active, .menu-transicion.ng-enter-active{
-transition-delay: 100ms; /* Delay de 100ms */
-transition-duration: 300ms; /* Duración de la transición: 300ms */
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 10px;
+  height: 100px;
+  background-color: #333; /* Color de la barra de desplazamiento */
+  opacity: 0.7;
+  border-radius: 5px;
 }

@@ -9,9 +9,9 @@ import java.util.List;
 public interface AulaService {
     public Aula createAula(AulaDto aulaDto);
 
-    public List<Aula> getAllAulas();
+    public List<AulaDto> getAllAulas();
 
-    public Aula getAulaById(Integer id);
-    void deleteAulaById(Integer id);
+    public AulaDto getAulaById(Integer id);
+    public void deleteAulaById(Integer id);
 
 }

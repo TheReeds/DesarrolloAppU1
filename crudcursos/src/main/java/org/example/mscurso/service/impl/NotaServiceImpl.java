@@ -1,9 +1,6 @@
 package org.example.mscurso.service.impl;
 
-import org.example.mscurso.dto.MatriculaDto;
-import org.example.mscurso.dto.NotaBulkUpdateDto;
-import org.example.mscurso.dto.NotaDto;
-import org.example.mscurso.dto.NotasRequestDto;
+import org.example.mscurso.dto.*;
 import org.example.mscurso.entity.Curso;
 import org.example.mscurso.entity.Nota;
 import org.example.mscurso.feign.AlumnoFeign;
@@ -11,9 +8,11 @@ import org.example.mscurso.feign.MatriculaFeign;
 import org.example.mscurso.repository.CursoRepository;
 import org.example.mscurso.repository.NotaRepository;
 import org.example.mscurso.service.NotaService;
+import org.example.mscurso.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +29,8 @@ public class NotaServiceImpl implements NotaService {
 
     @Autowired
     private MatriculaFeign matriculaFeign;
+    @Autowired
+    private PdfService pdfService;
 
     @Override
     public Nota registrarNota(Nota nota) {
@@ -126,7 +127,31 @@ public class NotaServiceImpl implements NotaService {
             }
         }
     }
+    @Override
+    public void eliminarNotasPorAlumnoId(Integer alumnoId) {
+        List<Nota> notas = notaRepository.findByAlumnoId(alumnoId);
+        notaRepository.deleteAll(notas);
+    }
+    @Override
+    public AulaNotaDto obtenerDatosPorAulaId(Integer aulaId) {
+        AulaDto aulaDto = matriculaFeign.getAulaById(aulaId);
+        Curso curso = cursoRepository.findById(aulaDto.getCurso().getId())
+                .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
 
+        List<NotaDto> notas = obtenerNotasPorCursoId(curso.getId());
+
+        AulaNotaDto aulaNotaDto = new AulaNotaDto();
+        aulaNotaDto.setAula(aulaDto);
+        aulaNotaDto.setCurso(curso);
+        aulaNotaDto.setNotas(notas);
+
+        return aulaNotaDto;
+    }
+    @Override
+    public ByteArrayInputStream exportNotasToPdf(Integer aulaId) {
+        AulaNotaDto aulaNotaDto = obtenerDatosPorAulaId(aulaId);
+        return pdfService.generateNotasPdf(aulaNotaDto);
+    }
 
 
     private NotaDto mapToDto(Nota nota) {

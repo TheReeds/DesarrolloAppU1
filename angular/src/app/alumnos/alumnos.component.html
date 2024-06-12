@@ -43,10 +43,25 @@
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
-            <nav *ngIf="sidebarOpen" class="ml-6 space-y-1 pl-3">
-              <a routerLink="/estudiantes" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">Estudiantes</a>
-              <a routerLink="/cursos" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">Cursos</a>
-              <a routerLink="/profesores" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">Profesores</a>
+            <nav *ngIf="sidebarOpen" class="space-y-1 ml-1">
+              <a routerLink="/estudiantes" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                  stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+                Estudiantes</a>
+              <a routerLink="/cursos" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                  stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+                Cursos</a>
+              <a routerLink="/profesores" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                  stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+                Profesores</a>
             </nav>
           </div>
           <a routerLink="/anuncios" routerLinkActive="active" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
@@ -66,10 +81,25 @@
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
-            <nav *ngIf="sidebarOpen2" class="ml-6 space-y-1 pl-3">
-              <a routerLink="/usuarios" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">Usuarios</a>
-              <a routerLink="/grados" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">Grados</a>
-              <a routerLink="/horarios" routerLinkActive="active"  class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">Horarios</a>
+            <nav *ngIf="sidebarOpen2" class="space-y-1 ml-1">
+              <a routerLink="/usuarios" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                  stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+                Usuarios</a>
+              <a routerLink="/grados" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                  stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+                Grados</a>
+              <a routerLink="/horarios" routerLinkActive="active"  class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                  stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+                Horarios</a>
             </nav>
           </div>
           <div class="hover:cursor-pointer">
@@ -84,9 +114,25 @@
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
-            <nav *ngIf="sidebarOpen3" class="ml-6 space-y-1 pl-3">
-              <a routerLink="/matriculas" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">Matriculas</a>
-              <a routerLink="/aulas" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">Aulas</a>
+            <nav *ngIf="sidebarOpen3" class="ml-1 space-y-1">
+              <a routerLink="/matriculas" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                  stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+                Matriculas</a>
+              <a routerLink="/aulas" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                  stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                </svg>
+                Aulas</a>
+                <a routerLink="/notas" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                    stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                  </svg>
+                  Notas</a>
             </nav>
           </div>
 

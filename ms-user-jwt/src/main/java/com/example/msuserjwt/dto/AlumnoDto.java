@@ -11,5 +11,5 @@ public class AlumnoDto {
     private String dni;
     private GradoDto grado;
     private boolean estado;
-    private int usuarioId;
+    private Integer usuarioId;
 }

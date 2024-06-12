@@ -9,6 +9,6 @@ public class ProfesoresDto {
     private String dni;
     private String especialidad;
     private String telefono;
-    private int usuarioId;
+    private Integer usuarioId;
 
 }

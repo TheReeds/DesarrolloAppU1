@@ -3,6 +3,7 @@ package com.example.msuserjwt.controller;
 import com.example.msuserjwt.config.JwtService;
 import com.example.msuserjwt.dto.AlumnoDto;
 import com.example.msuserjwt.dto.ProfesoresDto;
+import com.example.msuserjwt.dto.RoleUpdateRequest;
 import com.example.msuserjwt.dto.UserDto;
 import com.example.msuserjwt.entity.Role;
 import com.example.msuserjwt.entity.User;
@@ -121,24 +122,49 @@ public class UserController {
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
-
+        //EN CASO SEA UN ALUMNO A ASOCIAR
         if (alumnoId != null) {
+            //MODELAR NUEVO ALUMNO
             AlumnoDto alumno = alumnoFeign.listById(alumnoId).getBody();
+            //VERIFICAR SI HAY UN ALUMNO YA ASOCIADO Y ELIMINAR RELACIÓN EN CASO HAYA UNO
+            if (user.getAlumnoId() != null){
+                AlumnoDto alumnoExistente = alumnoFeign.listById(user.getAlumnoId()).getBody();
+                alumnoExistente.setUsuarioId(null);
+                alumnoFeign.updateAlumno(user.getAlumnoId(), alumnoExistente);
+            }
             if (alumno == null) {
                 return ResponseEntity.notFound().build();
             }
+            //VERIFICAR SI HAY UN PROFESOR ASOCIADO Y ELIMINAR EN CASO HAYA UNO
+            if(user.getProfesorId() != null){
+                ProfesoresDto profesoresDto = profesorFeign.listById(user.getProfesorId()).getBody();
+                profesoresDto.setUsuarioId(null);;
+                profesorFeign.updateProfesor(user.getProfesorId(), profesoresDto);
+            }
+            //ACTUALIZAR NUEVO ALUMNO
             user.setAlumnoId(alumnoId);
             user.setProfesorId(null);
 
-            // Update Alumno with User ID
+            //ACTUALIZAR RELACIÓN EN EL MICROSERVICIO ALUMNO POR ID
             alumno.setUsuarioId(user.getId());
             alumnoFeign.updateAlumno(alumnoId, alumno);
-        }
 
+        }
+        //LO MISMO DE ARRIBA PERO PARA PROFESORES
         if (profesorId != null) {
             ProfesoresDto profesor = profesorFeign.listById(profesorId).getBody();
+            if (user.getProfesorId() != null){
+                ProfesoresDto profesorExistente = profesorFeign.listById(user.getProfesorId()).getBody();
+                profesorExistente.setUsuarioId(null);
+                profesorFeign.updateProfesor(user.getProfesorId(), profesorExistente);
+            }
             if (profesor == null) {
                 return ResponseEntity.notFound().build();
+            }
+            if(user.getAlumnoId() != null){
+                AlumnoDto alumno = alumnoFeign.listById(user.getAlumnoId()).getBody();
+                alumno.setUsuarioId(null);;
+                alumnoFeign.updateAlumno(user.getAlumnoId(), alumno);
             }
             user.setProfesorId(profesorId);
             user.setAlumnoId(null);
@@ -147,7 +173,7 @@ public class UserController {
             profesor.setUsuarioId(user.getId());
             profesorFeign.updateProfesor(profesorId, profesor);
         }
-
+        //ACTUALIZAR NUEVOS DATOS DEL USUARIO
         User updatedUser = userService.actualizar(user);
         return ResponseEntity.ok(updatedUser);
     }
@@ -192,14 +218,31 @@ public class UserController {
         }
     }
     @PutMapping("/{id}/role")
-    public ResponseEntity<User> updateRole(@PathVariable Integer id, @RequestParam Role role) {
+    public ResponseEntity<User> updateRole(@PathVariable Integer id, @RequestBody RoleUpdateRequest roleUpdateRequest) {
         User user = userService.listarPorId(id).orElse(null);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
-        user.setRole(role);
+        user.setRole(roleUpdateRequest.getRole());
         User updatedUser = userService.actualizar(user);
         return ResponseEntity.ok(updatedUser);
+    }
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable(required = true) Integer id){
+        User user = userService.listarPorId(id).orElse(null);
+        if (user.getAlumnoId() != null){
+            AlumnoDto alumno = alumnoFeign.listById(user.getAlumnoId()).getBody();
+            alumno.setUsuarioId(null);
+            alumnoFeign.updateAlumno(user.getAlumnoId(), alumno);
+
+        }else {
+            ProfesoresDto profesoresDto = profesorFeign.listById(user.getProfesorId()).getBody();
+            profesoresDto.setUsuarioId(null);;
+            profesorFeign.updateProfesor(user.getProfesorId(), profesoresDto);
+        }
+
+        userService.DeleteByID(id);
+        return "Se el Usuario ELIMINO CORRECTAMENTE";
     }
 
 }
