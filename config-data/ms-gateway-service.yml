@@ -34,7 +34,7 @@ spring:
           predicates:
             - Path=/alumno/**, /grado/**, /asistencias/**, /horarios/**
           filters:
-            - AuthFiler
+            - AuthFilter
         - id: ms-profesores-service
           uri: lb://ms-profesores-service
           predicates:

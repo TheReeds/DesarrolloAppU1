@@ -14,13 +14,13 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
-    private WebClient.Builder webClient;
-
+    private final WebClient.Builder webClient;
 
     public AuthFilter(WebClient.Builder webClient) {
         super(Config.class);
         this.webClient = webClient;
     }
+
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
@@ -47,15 +47,12 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
         };
     }
 
-
-    public Mono<Void> onError(ServerWebExchange exchange, HttpStatus status){
+    private Mono<Void> onError(ServerWebExchange exchange, HttpStatus status) {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(status);
-        return ((ServerHttpResponse) response).setComplete();
+        return response.setComplete();
     }
 
-
-    public static class Config {}
-
-
+    public static class Config {
+    }
 }
