@@ -11,6 +11,15 @@
           <p class="text-sm text-gray-400">{{ userRole }}</p>
           <p class="text-sm text-gray-400">{{ userAdditionalInfo }}</p>
         </div>
+
+        <ng-template #loadingTemplate>
+          <div class="p-4 text-center bg-gray-700">
+            <p class="text-white">Loading...</p>
+          </div>
+        </ng-template>
+        <div *ngIf="errorMessage" class="p-4 text-center bg-red-600">
+          <p class="text-white">{{ errorMessage }}</p>
+        </div>
         <!-- Search Bar -->
         <div class="flex items-center mt-4 px-4">
           <input type="text" class="flex-1 p-2 rounded-l-md bg-gray-600 text-white placeholder-gray-400" placeholder="Search">

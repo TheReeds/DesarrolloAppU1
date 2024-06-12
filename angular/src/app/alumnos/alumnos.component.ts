@@ -18,6 +18,9 @@ export class AlumnosComponent {
   userRole: string | null = null;
   userProfileImage: string | null = null;
   userAdditionalInfo: string | null = null;
+  isLoading = false; // Nuevo estado de carga
+  errorMessage: string | null = null;
+
   constructor (private router: Router, private sidebarService: SidebarService, private authService: AuthService){}
 
   ngOnInit() {
@@ -73,13 +76,25 @@ export class AlumnosComponent {
     this.router.navigate(['/login'])
   }
   loadUserInfo() {
-    this.authService.getUserInfo().subscribe(user => {
-      this.userName = user.alumnoDto ? `${user.alumnoDto.nombre} ${user.alumnoDto.apellidos}` :
-                      user.profesorDto ? `${user.profesorDto.nombre} ${user.profesorDto.apellidos}` :
-                      user.name;
-      this.userRole = user.role;
-      this.userProfileImage = `http://localhost:8085/usuarios/uploads/${user.profileImageUrl}`;
-      this.userAdditionalInfo = user.alumnoDto ? 'Alumno' : user.profesorDto ? 'Profesor' : 'Director';
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    this.authService.getUserInfo().subscribe({
+      next: (user) => {
+        console.log('User data received:', user); // Log para depuración
+        this.userName = user.alumnoDto ? `${user.alumnoDto.nombre} ${user.alumnoDto.apellidos}` :
+                        user.profesorDto ? `${user.profesorDto.nombre} ${user.profesorDto.apellidos}` :
+                        user.name;
+        this.userRole = user.role;
+        this.userProfileImage = `http://localhost:8085/usuarios/uploads/${user.profileImageUrl}`;
+        this.userAdditionalInfo = user.alumnoDto ? 'Alumno' : user.profesorDto ? 'Profesor' : 'Director';
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading user info:', error); // Log para depuración
+        this.errorMessage = 'Error loading user info. Please try again later.';
+        this.isLoading = false;
+      }
     });
   }
 }

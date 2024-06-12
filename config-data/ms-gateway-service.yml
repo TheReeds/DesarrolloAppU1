@@ -33,25 +33,35 @@ spring:
           uri: lb://ms-alumno-service
           predicates:
             - Path=/alumno/**, /grado/**, /asistencias/**, /horarios/**
-          filters:
-            - AuthFilter
+          #filters:
+          #  - AuthFilter
         - id: ms-profesores-service
           uri: lb://ms-profesores-service
           predicates:
             - Path=/profesores/**, /anuncios/**
+          #filters:
+          #  - AuthFilter
         - id: ms-curso-service
           uri: lb://ms-curso-service
           predicates:
             - Path=/cursos/**, /notas/**
+          #filters:
+          #  - AuthFilter
         - id: ms-userjwt-service
           uri: lb://ms-userjwt-service
           predicates:
             - Path=/auth/**
+          #filters:
+          #  - AuthFilter
         - id: ms-matricula-service
           uri: lb://ms-matricula-service
           predicates:
             - Path=/matriculas/**, /aulas/**
+          #filters:
+          #  - AuthFilter
         - id: ms-userjwt-service
           uri: lb://ms-userjwt-service
           predicates:
             - Path=/auth/**, /usuarios/**
+          #filters:
+          #  - AuthFilter

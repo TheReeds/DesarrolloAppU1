@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet, FormsModule, RouterLink],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [AuthService]
 })
 
 
@@ -35,7 +36,7 @@ export class AppComponent {
             console.log('Login exitoso');
 
             // Redirigir al usuario a la página principal o hacer lo que necesites
-            this.router.navigate(['/casa']);
+            this.router.navigate(['/inicio']);
           },
           error => {
             // Manejar el error de inicio de sesión

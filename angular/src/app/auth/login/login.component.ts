@@ -23,12 +23,9 @@ export class LoginComponent implements OnInit {
       this.password = '';
     }
     ngOnInit(): void {
-      // Verifica si hay datos en el almacenamiento local al cargar el componente
-      const isLoggedIn = localStorage.length>0; // Suponiendo que 'usuario' es la clave utilizada para almacenar los datos del usuario
-
+      const isLoggedIn = this.authService.isAuth();
       if (isLoggedIn) {
-        // Si hay datos en el almacenamiento local, redirige al usuario al componente de menú
-        this.router.navigate(['/casa']);
+        this.router.navigate(['/inicio']);
       }
     }
 
@@ -37,17 +34,11 @@ export class LoginComponent implements OnInit {
       console.log('Password:', this.password);
       this.authService.login(this.email, this.password)
         .subscribe(
-          (response: any) => { // Asegúrate de ajustar el tipo de respuesta según lo que devuelve tu servicio
-            // Manejar la respuesta de éxito
-            const token = response.token; // Asumiendo que tu API devuelve un objeto con el token
-            localStorage.setItem('accessToken', token); // Guardar el token en el almacenamiento local
+          response => {
             console.log('Login exitoso');
-
-            // Redirigir al usuario a la página principal o hacer lo que necesites
             this.router.navigate(['/inicio']);
           },
           error => {
-            // Manejar el error de inicio de sesión
             console.error('Error de inicio de sesión:', error);
           }
         );

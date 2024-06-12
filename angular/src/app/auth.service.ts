@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,17 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<{ token: string }> {
     const body = { email, password };
-    return this.http.post(`${this.apiUrl}`, body);
+    return this.http.post<{ token: string }>(this.apiUrl, body).pipe(
+      tap(response => {
+        const token = response.token;
+        if (token) {
+          localStorage.setItem('accessToken', token);
+        }
+      })
+    );
   }
-
   getUserInfo(): Observable<any> {
     const token = localStorage.getItem('accessToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -24,5 +31,9 @@ export class AuthService {
 
   isAuth(): boolean {
     return localStorage.getItem('accessToken') !== null;
+  }
+
+  logout(): void {
+    localStorage.removeItem('accessToken');
   }
 }
