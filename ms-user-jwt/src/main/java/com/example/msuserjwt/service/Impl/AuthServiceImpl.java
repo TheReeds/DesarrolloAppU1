@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
 
     @Value("${default.profile.image.url}")
     private String defaultProfileImageUrl;
@@ -57,4 +60,15 @@ public class AuthServiceImpl implements AuthService {
         return AuthResponse.builder()
                 .token(jwtToken).build();
     }
+    @Override
+    public boolean validateToken(String token) {
+        try {
+            String username = jwtService.getUserName(token);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            return jwtService.validateToken(token, userDetails);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

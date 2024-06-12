@@ -7,4 +7,5 @@ import com.example.msuserjwt.controller.models.RegisterRequest;
 public interface AuthService {
     AuthResponse register (RegisterRequest request);
     AuthResponse authenticate (AuthenticationRequest request);
+    public boolean validateToken(String token);
 }

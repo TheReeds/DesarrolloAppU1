@@ -33,6 +33,8 @@ spring:
           uri: lb://ms-alumno-service
           predicates:
             - Path=/alumno/**, /grado/**, /asistencias/**, /horarios/**
+          filters:
+            - AuthFiler
         - id: ms-profesores-service
           uri: lb://ms-profesores-service
           predicates:
