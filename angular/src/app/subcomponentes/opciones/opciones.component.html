@@ -1,0 +1,87 @@
+<app-alumnos>
+  <div navbar-content>
+    <div class="mx-auto p-5 sm:p-10 md:p-16">
+      <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white flex flex-col sm:flex-row justify-between items-center">
+            <h2 class="text-2xl font-semibold mb-4 sm:mb-0">Perfil</h2>
+          </div>
+          <div class="px-6 py-4">
+            <form (ngSubmit)="actualizarPerfil()">
+              <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Nombre</label>
+                <input type="text" [(ngModel)]="perfil.name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Email</label>
+                <input type="email" [(ngModel)]="perfil.email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" disabled>
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Imagen de Perfil</label>
+                <input type="file" (change)="onFileSelected($event)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <img *ngIf="perfil.profileImageUrl" [src]="'http://localhost:8085/usuarios/uploads/' + perfil.profileImageUrl" alt="Imagen de Perfil" class="mt-4 rounded-lg shadow-md max-w-xs">
+              </div>
+              <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                  Actualizar Perfil
+                </button>
+              </div>
+            </form>
+            <div *ngIf="perfil.alumnoDto || perfil.profesorDto" class="mt-8">
+              <h3 class="text-xl font-bold mb-4">Información Adicional</h3>
+              <div class="overflow-x-auto">
+                <table class="min-w-full bg-white rounded-lg shadow-md">
+                  <thead>
+                    <tr>
+                      <th class="px-4 py-2 bg-gray-200 text-gray-600 font-bold uppercase text-sm">Campo</th>
+                      <th class="px-4 py-2 bg-gray-200 text-gray-600 font-bold uppercase text-sm">Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="perfil.alumnoDto">
+                      <td class="border px-4 py-2 font-semibold">Cuenta</td>
+                      <td class="border px-4 py-2">Alumno</td>
+                    </tr>
+                    <tr *ngIf="perfil.alumnoDto">
+                      <td class="border px-4 py-2 font-semibold">Nombre</td>
+                      <td class="border px-4 py-2">{{ perfil.alumnoDto.nombre }} {{ perfil.alumnoDto.apellidos }}</td>
+                    </tr>
+                    <tr *ngIf="perfil.alumnoDto">
+                      <td class="border px-4 py-2 font-semibold">DNI</td>
+                      <td class="border px-4 py-2">{{ perfil.alumnoDto.dni }}</td>
+                    </tr>
+                    <tr *ngIf="perfil.alumnoDto">
+                      <td class="border px-4 py-2 font-semibold">Teléfono</td>
+                      <td class="border px-4 py-2">{{ perfil.alumnoDto.telefono }}</td>
+                    </tr>
+                    <tr *ngIf="perfil.profesorDto">
+                      <td class="border px-4 py-2 font-semibold">Cuenta</td>
+                      <td class="border px-4 py-2">Profesor</td>
+                    </tr>
+                    <tr *ngIf="perfil.profesorDto">
+                      <td class="border px-4 py-2 font-semibold">Nombre</td>
+                      <td class="border px-4 py-2">{{ perfil.profesorDto.nombre }}</td>
+                    </tr>
+                    <tr *ngIf="perfil.profesorDto">
+                      <td class="border px-4 py-2 font-semibold">DNI</td>
+                      <td class="border px-4 py-2">{{ perfil.profesorDto.dni }}</td>
+                    </tr>
+                    <tr *ngIf="perfil.profesorDto">
+                      <td class="border px-4 py-2 font-semibold">Especialidad</td>
+                      <td class="border px-4 py-2">{{ perfil.profesorDto.especialidad }}</td>
+                    </tr>
+                    <tr *ngIf="perfil.profesorDto">
+                      <td class="border px-4 py-2 font-semibold">Teléfono</td>
+                      <td class="border px-4 py-2">{{ perfil.profesorDto.telefono }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-notificationc></app-notificationc>
+    </div>
+  </div>
+</app-alumnos>

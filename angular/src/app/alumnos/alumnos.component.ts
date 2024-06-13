@@ -38,6 +38,11 @@ export class AlumnosComponent {
     const url = this.router.url;
     const urlSegments = url.split('/');
     this.currentRoute = urlSegments[urlSegments.length - 1] || 'Inicio';
+
+    // Verificar si alguna de las rutas corresponde a las del sidebar
+    this.sidebarOpen = url.includes('estudiantes') || url.includes('cursos') || url.includes('profesores'); // Ajusta según tus rutas
+    this.sidebarOpen2 = url.includes('usuarios') || url.includes('grados') || url.includes('horarios');
+    this.sidebarOpen3 = url.includes('aulas') || url.includes('notas') || url.includes('asistencias');
   }
 
   ngOnInit() {
@@ -47,16 +52,28 @@ export class AlumnosComponent {
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
+    if (this.sidebarOpen) {
+      this.sidebarOpen2 = false;
+      this.sidebarOpen3 = false;
+    }
     this.saveSidebarState();
   }
 
   toggleSidebar2() {
     this.sidebarOpen2 = !this.sidebarOpen2;
+    if (this.sidebarOpen2) {
+      this.sidebarOpen = false;
+      this.sidebarOpen3 = false;
+    }
     this.saveSidebarState();
   }
 
   toggleSidebar3() {
     this.sidebarOpen3 = !this.sidebarOpen3;
+    if (this.sidebarOpen3) {
+      this.sidebarOpen = false;
+      this.sidebarOpen2 = false;
+    }
     this.saveSidebarState();
   }
 
@@ -100,7 +117,7 @@ export class AlumnosComponent {
       next: (user) => {
         console.log('User data received:', user); // Log para depuración
         this.userName = user.alumnoDto ? `${user.alumnoDto.nombre} ${user.alumnoDto.apellidos}` :
-                        user.profesorDto ? `${user.profesorDto.nombre} ${user.profesorDto.apellidos}` :
+                        user.profesorDto ? `${user.profesorDto.nombre} ${user.profesorDto.especialidad}` :
                         user.name;
         this.userRole = user.role;
         this.userProfileImage = `http://localhost:8085/usuarios/uploads/${user.profileImageUrl}`;

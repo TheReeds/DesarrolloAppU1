@@ -1,0 +1,36 @@
+<app-sidebar>
+  <div navbar-content>
+    <div class="mx-auto p-5 sm:p-10 md:p-16">
+      <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white flex flex-col sm:flex-row justify-between items-center">
+            <h2 class="text-2xl font-semibold mb-4 sm:mb-0">Actualizar Foto de Perfil</h2>
+          </div>
+          <div class="px-6 py-4">
+            <form (ngSubmit)="actualizarPerfil()">
+              <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Nombre</label>
+                <input type="text" [(ngModel)]="perfil.name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" disabled>
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Email</label>
+                <input type="email" [(ngModel)]="perfil.email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" disabled>
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Imagen de Perfil</label>
+                <input type="file" (change)="onFileSelected($event)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <img *ngIf="perfil.profileImageUrl" [src]="'http://localhost:8085/usuarios/uploads/' + perfil.profileImageUrl" alt="Imagen de Perfil" class="mt-4 rounded-lg shadow-md max-w-xs">
+              </div>
+              <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                  Actualizar Perfil
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <app-notificationc></app-notificationc>
+    </div>
+  </div>
+</app-sidebar>

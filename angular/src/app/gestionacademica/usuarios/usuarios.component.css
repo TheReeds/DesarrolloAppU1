@@ -1,7 +1,7 @@
-/* anuncios.component.css */
 .navbar-content {
-  padding: 20px;
+  padding: 2rem;
   text-align: center;
+  background-color: #f7fafc;
 }
 
 .overlay {
@@ -15,163 +15,96 @@
   display: none;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.3s ease;
 }
 
 .overlay.is-active {
   display: flex;
+  opacity: 1;
 }
 
 .modal-card {
   background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   width: 90%;
-  max-width: 600px;
+  max-width: 40rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.card {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card-image .image {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  overflow: hidden;
-}
-
-.card-content {
-  padding: 16px;
-  text-align: left;
-}
-
-.card-content .media-content {
-  text-align: left;
-}
-
-.content .buttons {
+.modal-card-head {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.button.is-primary {
-  background-color: #00d1b2;
-  border-color: transparent;
-  color: #fff;
-}
-
-.button.is-danger {
-  background-color: #ff3860;
-  border-color: transparent;
-  color: #fff;
-}
-
-.button.is-info {
-  background-color: #209cee;
-  border-color: transparent;
-  color: #fff;
-}
-
-.button.is-secondary {
-  background-color: #b5b5b5;
-  border-color: transparent;
-  color: #fff;
-}
-/* anuncios.component.css */
-
-.field {
-  margin-bottom: 1.5rem;
-}
-
-.label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.control .input,
-.control .textarea {
-  width: 100%;
-  border: 1px solid #ccc; /* Color de borde */
-  padding: 0.5rem;
-  border-radius: 4px;
-}
-
-.control .input:focus,
-.control .textarea:focus {
-  border-color: #3273dc; /* Color de borde al enfocarse */
-  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
-}
-
-.full-width {
-  width: 100%;
-}
-
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.button.is-primary {
-  background-color: #00d1b2;
-  border-color: transparent;
-  color: #fff;
-}
-
-.button.is-danger {
-  background-color: #ff3860;
-  border-color: transparent;
-  color: #fff;
-}
-
-.button.is-info {
-  background-color: #209cee;
-  border-color: transparent;
-  color: #fff;
-}
-
-.button.is-secondary {
-  background-color: #b5b5b5;
-  border-color: transparent;
-  color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4a5568;
+  color: white;
+  padding: 1rem;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
 .modal-card-body {
-  padding: 20px;
-}
-.modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
 }
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
+.delete {
   font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.delete:hover {
+  color: #e53e3e;
+}
+
+.input,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input:focus,
+select:focus {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 0.125rem rgba(66, 153, 225, 0.5);
+}
+
+.button {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-0.125rem);
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.125rem rgba(66, 153, 225, 0.5);
+}
+
+.button-primary {
+  background-color: #3182ce;
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: #2b6cb0;
+}
+
+.button-secondary {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.button-secondary:hover {
+  background-color: #cbd5e0;
 }

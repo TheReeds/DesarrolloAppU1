@@ -1,5 +1,6 @@
 package org.example.msmatricula.controller;
 
+import org.example.msmatricula.Dto.AulaConProfesorDto;
 import org.example.msmatricula.Dto.AulaDto;
 import org.example.msmatricula.entity.Aula;
 import org.example.msmatricula.service.AulaService;
@@ -42,5 +43,10 @@ public class AulaController {
     public ResponseEntity<Void> deleteAula(@PathVariable Integer id) {
         aulaService.deleteAulaById(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/alumno/{alumnoId}")
+    public ResponseEntity<List<AulaConProfesorDto>> getAulasByAlumnoId(@PathVariable Integer alumnoId) {
+        List<AulaConProfesorDto> aulas = aulaService.getAulasByAlumnoId(alumnoId);
+        return ResponseEntity.ok(aulas);
     }
 }

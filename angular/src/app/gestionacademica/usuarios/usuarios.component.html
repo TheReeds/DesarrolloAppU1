@@ -1,9 +1,9 @@
 <app-alumnos>
-  <div navbar-content class="p-8">
+  <div navbar-content>
     <div class="container mx-auto">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-gray-800">Gestión de Usuarios</h2>
-        <button (click)="showModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <h2 class="text-3xl font-semibold text-gray-800">Gestión de Usuarios</h2>
+        <button (click)="showModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
           Crear Usuario
         </button>
       </div>
@@ -30,9 +30,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let usuario of usuarios">
+            <tr *ngFor="let usuario of usuarios" class="hover:bg-gray-50 transition duration-150">
               <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <img [src]="getImageUrl(usuario.profileImageUrl)" alt="Imagen de perfil" class="w-10 h-10 rounded-full">
+                <img [src]="getImageUrl(usuario.profileImageUrl)" alt="Imagen de perfil" class="w-10 h-10 rounded-full shadow-sm">
               </td>
               <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 {{ usuario.email }}
@@ -41,14 +41,14 @@
                 {{ usuario.role }}
               </td>
               <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span *ngIf="usuario.alumnoDto">Alumno</span>
-                <span *ngIf="usuario.profesorDto">Profesor</span>
-                <span *ngIf="!usuario.alumnoDto && !usuario.profesorDto">Sin Asociación</span>
+                <span *ngIf="usuario.alumnoDto" class="text-white bg-purple-800 rounded-md py-1 px-2">Alumno</span>
+                <span *ngIf="usuario.profesorDto" class="text-white bg-yellow-500 rounded-md py-1 px-2">Profesor</span>
+                <span *ngIf="!usuario.alumnoDto && !usuario.profesorDto" class="text-white bg-slate-600 rounded-md py-1 px-2">Sin Asociación</span>
               </td>
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <button (click)="editUsuario(usuario)" class="text-blue-600 hover:text-blue-900 mr-2">Editar</button>
-                <button (click)="deleteUsuario(usuario.id)" class="text-red-600 hover:text-red-900 mr-2">Eliminar</button>
-                <button (click)="asociarAlumnoOProfesor(usuario.id)" class="text-green-600 hover:text-green-900">Asociar</button>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
+                <button (click)="editUsuario(usuario)" class="text-white font-medium hover:text-black transition bg-blue-500 py-2 px-3 rounded-md hover:bg-white">Editar</button>
+                <button (click)="deleteUsuario(usuario.id)" class="text-white font-medium hover:text-black transition bg-red-600 py-2 px-3 rounded-md hover:bg-white">Eliminar</button>
+                <button (click)="asociarAlumnoOProfesor(usuario.id)" class="text-white font-medium hover:text-black transition bg-green-600 py-2 px-3 rounded-md hover:bg-white">Asociar</button>
               </td>
             </tr>
           </tbody>
@@ -56,34 +56,34 @@
       </div>
 
       <!-- Modal -->
-      <div *ngIf="modalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <div *ngIf="modalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg transform transition-all">
           <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">{{ isEdit ? 'Editar Usuario' : 'Crear Usuario' }}</h3>
-            <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">&times;</button>
+            <h3 class="text-2xl font-semibold">{{ isEdit ? 'Editar Usuario' : 'Crear Usuario' }}</h3>
+            <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
           </div>
           <form (ngSubmit)="createOrEditUsuario()">
             <div class="mb-4">
               <label class="block text-gray-700 font-bold mb-2">Nombre:</label>
-              <input type="text" [(ngModel)]="newUsuario.name" name="name" class="w-full p-2 border rounded">
+              <input type="text" [(ngModel)]="newUsuario.name" name="name" class="w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
               <label class="block text-gray-700 font-bold mb-2">Email:</label>
-              <input type="email" [(ngModel)]="newUsuario.email" name="email" class="w-full p-2 border rounded">
+              <input type="email" [(ngModel)]="newUsuario.email" name="email" class="w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4" *ngIf="!isEdit">
               <label class="block text-gray-700 font-bold mb-2">Contraseña:</label>
-              <input type="password" [(ngModel)]="newUsuario.password" name="password" class="w-full p-2 border rounded">
+              <input type="password" [(ngModel)]="newUsuario.password" name="password" class="w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
               <label class="block text-gray-700 font-bold mb-2">Rol:</label>
-              <select [(ngModel)]="newUsuario.role" name="role" class="w-full p-2 border rounded">
+              <select [(ngModel)]="newUsuario.role" name="role" class="w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500">
                 <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
               </select>
             </div>
-            <div class="flex justify-end">
-              <button type="button" (click)="closeModal()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2">Cerrar</button>
-              <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{ isEdit ? 'Actualizar' : 'Crear' }}</button>
+            <div class="flex justify-end space-x-2">
+              <button type="button" (click)="closeModal()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Cerrar</button>
+              <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">{{ isEdit ? 'Actualizar' : 'Crear' }}</button>
             </div>
           </form>
         </div>

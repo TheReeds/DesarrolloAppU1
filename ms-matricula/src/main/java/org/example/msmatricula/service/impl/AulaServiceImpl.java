@@ -133,4 +133,20 @@ public class AulaServiceImpl implements AulaService {
             throw new RuntimeException("Aula no encontrada con el id: " + id);
         }
     }
+    @Override
+    public List<AulaConProfesorDto> getAulasByAlumnoId(Integer alumnoId) {
+        List<Aula> aulas = aulaRepository.findAll();
+
+        return aulas.stream()
+                .filter(aula -> aula.getAlumnos().stream()
+                        .anyMatch(aulaAlumno -> aulaAlumno.getAlumnoId().equals(alumnoId)))
+                .map(aula -> {
+                    AulaConProfesorDto dto = new AulaConProfesorDto();
+                    dto.setAulaId(aula.getId());
+                    dto.setAulaNombre(aula.getNombre());
+                    dto.setProfesor(profesorFeign.listById(aula.getProfesorId()).getBody());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 }

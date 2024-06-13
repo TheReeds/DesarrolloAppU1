@@ -1,15 +1,15 @@
 <!-- Dashboard Component -->
 
-<div class="flex h-screen bg-slate-100">
+<div class="flex h-screen bg-slate-200">
   <!-- Sidebar -->
   <div *ngIf="isMenuOpen" class="menu-transicion w-64 bg-gray-800 text-white">
       <!-- Opciones del Menú -->
         <!-- Info Usuarios -->
-        <div class="p-4 text-center bg-gray-700">
-          <img [src]="userProfileImage" alt="Avatar user" class="w-16 h-16 rounded-full mx-auto mb-2">
-          <h2 class="text-lg font-semibold">{{ userName }}</h2>
-          <p class="text-sm text-gray-400">{{ userRole }}</p>
-          <p class="text-sm text-gray-400">{{ userAdditionalInfo }}</p>
+
+        <div class="p-4 text-center bg-gray-700" style="background-image: url('https://m.media-amazon.com/images/I/61lMXqAVylL.jpg');">
+          <img [src]="userProfileImage" alt="Avatar user" class="w-20 h-20 rounded-full mx-auto my-4">
+          <h2 class="text-xl font-semibold">{{ userName }}</h2>
+          <p class="text-sm text-gray-100 py-1 px-2 bg-indigo-700 rounded-md font-medium">{{ userAdditionalInfo }}</p>
         </div>
 
         <ng-template #loadingTemplate>
@@ -43,7 +43,7 @@
           <!-- ... -->
 
           <div class="hover:cursor-pointer">
-            <a (click)="toggleSidebar()" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+            <a [class.active]="sidebarOpen" (click)="toggleSidebar()" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
               <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 21C5 17.134 8.134 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.209 14.209 11 12 11C9.791 11 8 9.209 8 7C8 4.791 9.791 3 12 3C14.209 3 16 4.791 16 7Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
@@ -52,7 +52,7 @@
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </a>
-            <nav *ngIf="sidebarOpen" class="space-y-1 ml-1">
+            <nav class="submenu-transicion" *ngIf="sidebarOpen" class="space-y-1 ml-1">
               <a routerLink="/estudiantes" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
                   stroke="currentColor" aria-hidden="true" class="w-5 h-3">
@@ -81,7 +81,7 @@
             Anuncios
           </a>
           <div class="hover:cursor-pointer">
-            <a (click)="toggleSidebar2()" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+            <a (click)="toggleSidebar2()" [class.active]="sidebarOpen2" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
               <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 30" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM15 2v4a2 2 0 0 0 2 2h4"></path>
               </svg>
@@ -112,7 +112,7 @@
             </nav>
           </div>
           <div class="hover:cursor-pointer">
-            <a (click)="toggleSidebar3()" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+            <a (click)="toggleSidebar3()" [class.active]="sidebarOpen3" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
               <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <!-- Icono de casa (home) -->
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3V21h14V8h-7V3z"></path>
@@ -158,7 +158,7 @@
 
             Documentación
           </a>
-          <a routerLink="/aulas" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+          <a routerLink="/opciones" routerLinkActive="active" class="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
             <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <g id="icomoon-ignore">
               </g>

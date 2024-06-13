@@ -1,3 +1,8 @@
+.navbar-content {
+  padding: 2rem;
+  background-color: #f7fafc;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -8,24 +13,29 @@
   display: none;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.3s ease;
 }
 
 .overlay.is-active {
   display: flex;
+  opacity: 1;
 }
 
 .modal-card {
-  background: white;
-  border-radius: 5px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   width: 90%;
-  max-width: 500px;
+  max-width: 40rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .modal-card-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 1rem;
   border-bottom: 1px solid #eee;
 }
 
@@ -34,14 +44,18 @@
 }
 
 .delete {
-  background: none;
-  border: none;
   font-size: 1.5rem;
+  line-height: 1;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.delete:hover {
+  color: #e53e3e;
 }
 
 .modal-card-body {
-  padding: 20px;
+  padding: 1.5rem;
 }
 
 .field {
@@ -59,6 +73,13 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input:focus,
+select:focus {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 0.125rem rgba(66, 153, 225, 0.5);
 }
 
 .buttons {
@@ -67,7 +88,20 @@
 }
 
 .button {
-  margin-left: 10px;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-0.125rem);
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.125rem rgba(66, 153, 225, 0.5);
 }
 
 .table-auto {
@@ -85,91 +119,36 @@
   background-color: #f4f4f4;
   text-align: left;
 }
-.card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin: 10px;
-  padding: 10px;
+
+.table-auto tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
 }
 
-.card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
+.table-auto th {
+  background-color: #f4f4f4;
 }
 
-.card-text {
-  margin: 5px 0;
+.bg-blue-500:hover {
+  background-color: #2563eb;
 }
 
-.btn {
-  margin-right: 5px;
+.bg-green-500:hover {
+  background-color: #22c55e;
 }
 
-.modal-card {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.bg-red-500:hover {
+  background-color: #ef4444;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
+.bg-blue-600:hover {
+  background-color: #1d4ed8;
 }
 
-.overlay.is-active {
-  display: block;
+.bg-green-600:hover {
+  background-color: #16a34a;
 }
 
-.formulario {
-  width: 90%;
-  max-width: 600px;
-}
-
-.container {
-  max-width: 1200px;
-}
-
-.grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-.md\:grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.lg\:grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: background-color 0.3s;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.btn-info {
-  background-color: #17a2b8;
-  color: #fff;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: #fff;
+.bg-red-600:hover {
+  background-color: #dc2626;
 }

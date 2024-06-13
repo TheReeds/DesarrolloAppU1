@@ -14,6 +14,12 @@ import { GradosComponent } from './gestionacademica/grados/grados.component';
 import { UsuariosComponent } from './gestionacademica/usuarios/usuarios.component';
 import { NotasComponent } from './gestionmatriculas/notas/notas.component';
 import { AsistenciasComponent } from './gestionmatriculas/asistencias/asistencias.component';
+import { OpcionesComponent } from './subcomponentes/opciones/opciones.component';
+import { SidebarComponent } from './estudiante/sidebar/sidebar.component';
+import { InicioEstudianteComponent } from './estudiante/inicio-estudiante/inicio-estudiante.component';
+import { AulasEstudianteComponent } from './estudiante/aulas-estudiante/aulas-estudiante.component';
+import { NotasEstudianteComponent } from './estudiante/notas-estudiante/notas-estudiante.component';
+import { OpcionesEstudianteComponent } from './estudiante/opciones-estudiante/opciones-estudiante.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -30,6 +36,14 @@ export const routes: Routes = [
   { path: 'usuarios', component: UsuariosComponent, canActivate: [authGuard]},
   { path: 'notas', component: NotasComponent, canActivate: [authGuard]},
   { path: 'asistencias', component: AsistenciasComponent, canActivate: [authGuard]},
+  { path: 'opciones', component: OpcionesComponent, canActivate: [authGuard]},
+
+  { path: 'estudiante', component: SidebarComponent, canActivate: [authGuard]},
+  { path: 'estudiante/inicio', component: InicioEstudianteComponent, canActivate: [authGuard]},
+  { path: 'estudiante/aulas', component: AulasEstudianteComponent, canActivate: [authGuard]},
+  { path: 'estudiante/notas', component: NotasEstudianteComponent, canActivate: [authGuard]},
+  { path: 'estudiante/opciones', component: OpcionesEstudianteComponent, canActivate: [authGuard]},
+
 
 
   { path: '', redirectTo: '/login', pathMatch: 'full'}

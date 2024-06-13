@@ -1,0 +1,25 @@
+<app-sidebar>
+  <div navbar-content>
+    <div class="container mx-auto mt-8 px-4 max-w-screen-xl">
+      <h2 class="text-2xl font-bold mb-6">Mis Notas</h2>
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden p-6">
+        <table class="min-w-full bg-white rounded-lg shadow-md">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 bg-gray-200 text-gray-600 font-bold uppercase text-sm">Curso</th>
+              <th class="px-4 py-2 bg-gray-200 text-gray-600 font-bold uppercase text-sm">Periodo</th>
+              <th class="px-4 py-2 bg-gray-200 text-gray-600 font-bold uppercase text-sm">Nota</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let nota of notas">
+              <td class="border px-4 py-2">{{ obtenerNombreCurso(nota.cursoId) }}</td>
+              <td class="border px-4 py-2">{{ nota.periodo }}</td>
+              <td class="border px-4 py-2">{{ nota.valor }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-sidebar>

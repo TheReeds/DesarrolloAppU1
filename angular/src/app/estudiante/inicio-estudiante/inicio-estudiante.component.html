@@ -1,0 +1,64 @@
+<app-sidebar>
+  <div navbar-content>
+    <div class="container mx-auto mt-8 px-4 max-w-screen-xl">
+      <!-- Cards Section -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 mb-8">
+        <div class="bg-blue-600 rounded-lg shadow-md p-6 hover:bg-blue-700 text-white transition duration-300">
+          <h2 class="text-2xl font-bold mb-4">Mis Aulas</h2>
+          <p class="mb-4">Mira aquí tus cursos y aulas!</p>
+          <div class="flex justify-between items-center">
+            <a routerLink="/estudiante/cursos" class="text-black font-semibold hover:text-white py-1 px-2 rounded-md bg-white hover:bg-black transition duration-300 hover:cursor-pointer">Ver cursos</a>
+          </div>
+        </div>
+        <div class="bg-green-600 rounded-lg shadow-md p-6 hover:bg-green-700 text-white transition duration-300">
+          <h2 class="text-2xl font-bold mb-4">Mis Notas</h2>
+          <p class="mb-4">Aquí también puedes ver el historial de tus notas.</p>
+          <div class="flex justify-between items-center">
+            <a routerLink="/estudiante/notas" class="text-black font-semibold hover:text-white py-1 px-2 rounded-md bg-white hover:bg-black transition duration-300 hover:cursor-pointer">Ver notas</a>
+          </div>
+        </div>
+        <div class="bg-red-600 rounded-lg shadow-md p-6 hover:bg-red-700 text-white transition duration-300">
+          <h2 class="text-2xl font-bold mb-4">Mis Asistencias</h2>
+          <p class="mb-4">Aquí tus asistencias.</p>
+          <div class="flex justify-between items-center">
+            <a routerLink="/estudiante/asistencias" class="text-black font-semibold hover:text-white py-1 px-2 rounded-md bg-white hover:bg-black transition duration-300 hover:cursor-pointer">Ver asistencias</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Anuncios del Colegio</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div *ngFor="let anuncio of anuncios" class="rounded-lg shadow-lg overflow-hidden bg-white">
+            <img [src]="getImageUrl(anuncio.nombreImagen)" alt="{{ anuncio.titulo }}" class="w-full h-48 object-cover">
+            <div class="p-4">
+              <h3 class="text-xl font-bold mb-2">{{ anuncio.titulo }}</h3>
+              <p class="text-gray-700 mb-4">{{ anuncio.descripcion }}</p>
+              <div class="text-sm text-gray-500">Fecha de creación: {{ anuncio.fechaCreacion | date }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Welcome Section -->
+      <div class="px-5 mx-auto bg-slate-500 text-white rounded-lg py-8 shadow-lg mt-8">
+        <h1 class="text-3xl font-bold text-center mb-6">¡Bienvenido a nuestra plataforma de gestión académica!</h1>
+        <p class="text-lg leading-relaxed mb-6">
+          En nuestra aplicación, hemos diseñado una experiencia educativa integral para facilitar la gestión de estudiantes,
+          profesores y cursos. Ya sea que seas un administrador escolar, un profesor apasionado o un estudiante entusiasta, nuestra
+          plataforma está diseñada para brindarte las herramientas que necesitas para alcanzar tus objetivos educativos.
+        </p>
+        <p class="text-lg leading-relaxed mb-6">
+          Ya seas un estudiante ávido de conocimientos, un educador comprometido o un administrador escolar dedicado, nuestra plataforma tiene algo para ti.
+          Únete a nuestra comunidad educativa hoy mismo y descubre un mundo de oportunidades de aprendizaje, crecimiento y desarrollo personal.
+        </p>
+        <p class="text-lg leading-relaxed">
+          ¡Vive la experiencia educativa definitiva con nuestra aplicación de gestión de estudiantes, profesores y cursos!
+        </p>
+      </div>
+
+      <!-- Anuncios Section -->
+
+    </div>
+  </div>
+</app-sidebar>

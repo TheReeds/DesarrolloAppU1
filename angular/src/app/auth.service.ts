@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8085/auth/authenticate';
-  private userInfoUrl = 'http://localhost:8085/usuarios/info'; // Reemplaza con la URL de tu API
+  private userInfoUrl = 'http://localhost:8085/usuarios/info';
 
   constructor(private http: HttpClient) { }
 
@@ -23,6 +23,7 @@ export class AuthService {
       })
     );
   }
+
   getUserInfo(): Observable<any> {
     const token = localStorage.getItem('accessToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

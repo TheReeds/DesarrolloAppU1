@@ -4,6 +4,7 @@
 .menu-transicion {
   opacity: 1;
   transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  transition: max-height 0.3s ease-in-out;
 }
 .menu-transicion.ng-leave, .menu-transicion.ng-enter {
   opacity: 0;
@@ -16,6 +17,19 @@
   color: #27c797;
   background-color: #1e293b; /* Color de fondo de los enlaces activos */
 }
+.menu-transicion.active {
+  max-height: 500px; /* Ajustar según sea necesario */
+}
+
+.menu-transicion .active {
+  color: #27c797;
+  background-color: #1e293b; /* Color de fondo de los enlaces activos */
+}
+.submenu-transicion {
+  opacity: 0;
+  transition: opacity 1.0s ease-in-out;
+}
+
 
 /* General Styles */
 h2 {
