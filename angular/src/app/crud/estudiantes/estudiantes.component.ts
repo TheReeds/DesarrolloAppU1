@@ -85,7 +85,7 @@ export class EstudiantesComponent implements OnInit {
         apellidos: '',
         telefono: '',
         dni: '',
-        estado: true,
+        estado: false,
         grado: {
           id: 0
         },
