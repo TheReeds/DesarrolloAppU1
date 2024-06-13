@@ -13,6 +13,7 @@ import { AulasComponent } from './gestionmatriculas/aulas/aulas.component';
 import { GradosComponent } from './gestionacademica/grados/grados.component';
 import { UsuariosComponent } from './gestionacademica/usuarios/usuarios.component';
 import { NotasComponent } from './gestionmatriculas/notas/notas.component';
+import { AsistenciasComponent } from './gestionmatriculas/asistencias/asistencias.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent},
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'grados', component: GradosComponent, canActivate: [authGuard]},
   { path: 'usuarios', component: UsuariosComponent, canActivate: [authGuard]},
   { path: 'notas', component: NotasComponent, canActivate: [authGuard]},
+  { path: 'asistencias', component: AsistenciasComponent, canActivate: [authGuard]},
 
 
   { path: '', redirectTo: '/login', pathMatch: 'full'}

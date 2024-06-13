@@ -4,7 +4,7 @@
       <div class="bg-white rounded-lg shadow-lg overflow-hidden">
         <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white flex flex-col sm:flex-row justify-between items-center">
           <h2 class="text-2xl font-semibold mb-4 sm:mb-0">Cursos</h2>
-          <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
+          <button (click)="abrirModal()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
             Nuevo curso
           </button>
         </div>
@@ -14,32 +14,73 @@
               <tr>
                 <th scope="col" class="px-6 py-3">Nombre</th>
                 <th scope="col" class="px-6 py-3">Descripción</th>
+                <th scope="col" class="px-6 py-3">Periodos</th>
                 <th scope="col" class="px-6 py-3">Duración</th>
                 <th scope="col" class="px-6 py-3">Profesor</th>
                 <th scope="col" class="px-6 py-3">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Iterar sobre los cursos -->
               <tr *ngFor="let curso of cursos" class="border-b bg-white hover:bg-gray-50 transition duration-300 transform hover:scale-105">
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ curso.nombre }}</td>
                 <td class="px-6 py-4 text-gray-700">{{ curso.descripcion }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ curso.numeroDePeriodos }}</td>
                 <td class="px-6 py-4 text-gray-700">{{ curso.duracion }}</td>
-                <td class="px-6 py-4 text-gray-700">{{ curso.profesoresDto.nombre }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ curso.profesoresDto?.nombre }}</td>
                 <td class="px-6 py-4 flex space-x-2">
-                  <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
+                  <button (click)="abrirModal(true, curso)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
                     Editar
                   </button>
-                  <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
+                  <button (click)="eliminarCurso(curso.id)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
                     Eliminar
                   </button>
                 </td>
               </tr>
-              <!-- Fin de la iteración -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div *ngIf="modalVisible" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-bold mb-4">{{ editando ? 'Editar Curso' : 'Registrar Curso' }}</h2>
+        <form (ngSubmit)="editando ? actualizarCurso() : registrarCurso()">
+          <div class="mb-4">
+            <label class="block text-gray-700">Nombre</label>
+            <input type="text" [(ngModel)]="nuevoCurso.nombre" name="nombre" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700">Descripción</label>
+            <input type="text" [(ngModel)]="nuevoCurso.descripcion" name="descripcion" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700">Duración</label>
+            <input type="text" [(ngModel)]="nuevoCurso.duracion" name="duracion" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700">Número de Periodos</label>
+            <input type="number" [(ngModel)]="nuevoCurso.numeroDePeriodos" name="numeroDePeriodos" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700">Profesor</label>
+            <select [(ngModel)]="nuevoCurso.profesorId" name="profesorId" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option *ngFor="let profesor of profesores" [value]="profesor.id">{{ profesor.nombre }}</option>
+            </select>
+          </div>
+          <div class="flex justify-end">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+              {{ editando ? 'Actualizar' : 'Registrar' }}
+            </button>
+            <button type="button" (click)="cerrarModal()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded ml-2">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <app-notificationc></app-notificationc>
   </div>
 </app-alumnos>

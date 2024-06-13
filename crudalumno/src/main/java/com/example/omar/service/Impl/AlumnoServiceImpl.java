@@ -2,8 +2,10 @@ package com.example.omar.service.Impl;
 
 import com.example.omar.dto.UserDto;
 import com.example.omar.entity.Alumno;
+import com.example.omar.entity.Grado;
 import com.example.omar.feign.UserFeign;
 import com.example.omar.repository.AlumnoRepository;
+import com.example.omar.repository.GradoRepository;
 import com.example.omar.service.AlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Autowired
     public UserFeign userFeign;
+    @Autowired
+    public GradoRepository gradoRepository;
 
     @Override
     public List<Alumno> listar() {
@@ -39,6 +43,16 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Override
     public Alumno guardar(Alumno alumno) {
+        // Validar el grado asociado
+        if (alumno.getGrado() != null && alumno.getGrado().getId() != null) {
+            Grado grado = gradoRepository.findById(alumno.getGrado().getId()).orElse(null);
+            if (grado != null) {
+                alumno.setGrado(grado);
+            } else {
+                // Manejar el caso en que el grado no existe
+                throw new RuntimeException("El grado especificado no existe");
+            }
+        }
         return alumnoRepository.save(alumno);
     }
 

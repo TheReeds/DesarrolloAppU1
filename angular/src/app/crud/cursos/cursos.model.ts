@@ -1,16 +1,11 @@
+import { Profesor } from "./profesor.model";
+
 export interface Curso {
   id: number;
   nombre: string;
   descripcion: string;
-  duracion: number;
+  duracion: string;
   numeroDePeriodos: number;
-  profesoresDto: ProfesoresDto;
-
+  profesorId: number;
+  profesoresDto?: Profesor;
 }
-export interface ProfesoresDto {
-  id: number;
-  nombre: string;
-  dni: string;
-  especialidad: string;
-}
-

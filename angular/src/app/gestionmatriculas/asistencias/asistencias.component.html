@@ -1,0 +1,80 @@
+<app-alumnos>
+  <div navbar-content>
+    <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="px-6 py-4 bg-gradient-to-r from-green-600 to-green-800 text-white flex flex-col sm:flex-row justify-between items-center">
+          <h2 class="text-2xl font-semibold mb-4 sm:mb-0">Aulas</h2>
+        </div>
+        <div class="px-6 py-4 overflow-x-auto">
+          <table class="min-w-full text-sm text-left text-gray-700">
+            <thead class="text-xs uppercase bg-gray-100 text-gray-600">
+              <tr>
+                <th scope="col" class="px-6 py-3">Nombre</th>
+                <th scope="col" class="px-6 py-3">Grado</th>
+                <th scope="col" class="px-6 py-3">Curso</th>
+                <th scope="col" class="px-6 py-3">Profesor</th>
+                <th scope="col" class="px-6 py-3">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b bg-white hover:bg-gray-50 transition duration-300 transform hover:scale-105" *ngFor="let aula of aulas">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ aula.nombre }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ aula.grado.nombre }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ aula.curso.nombre }}</td>
+                <td class="px-6 py-4 text-gray-700">{{ aula.profesor.nombre }}</td>
+                <td class="px-6 py-4 flex space-x-2">
+                  <button (click)="selectAula(aula.id)"
+                    class="bg-slate-600 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300">
+                    Tomar Asistencia
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div *ngIf="modalVisible" class="fixed inset-0 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden max-w-3xl w-full p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold">{{ selectedAula?.nombre }}</h2>
+            <button (click)="hideModal()" class="text-gray-600 hover:text-gray-900">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <p>Curso: {{ selectedAula?.curso?.nombre }}</p>
+          <p>Profesor: {{ selectedAula?.profesor?.nombre }}</p>
+          <p>Grado: {{ selectedAula?.grado?.nombre }}</p>
+          <h3 class="text-xl font-semibold mt-5">Alumnos y Asistencia</h3>
+          <form>
+            <table class="min-w-full bg-white mt-3">
+              <thead>
+                <tr>
+                  <th class="py-2 px-4 border-b">Alumno</th>
+                  <th class="py-2 px-4 border-b">Presente</th>
+                  <th class="py-2 px-4 border-b">Falta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let alumno of selectedAula?.alumnos">
+                  <td class="py-2 px-4 border-b">{{ alumno.nombre }} {{ alumno.apellidos }}</td>
+                  <td class="py-2 px-4 border-b">
+                    <input type="radio" name="presente-{{alumno.id}}" [(ngModel)]="asistencias[alumno.id].presente" [value]="true">
+                  </td>
+                  <td class="py-2 px-4 border-b">
+                    <input type="radio" name="presente-{{alumno.id}}" [(ngModel)]="asistencias[alumno.id].presente" [value]="false">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="flex justify-end mt-4">
+              <button type="button" (click)="saveAsistencias()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar Asistencias</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-alumnos>

@@ -4,11 +4,12 @@ import { Profesor } from './profesores.model';
 import { ProfesoresService } from './profesores.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NotificationcComponent } from '../../alerts/notificationc/notificationc.component';
 
 @Component({
   selector: 'app-profesores',
   standalone: true,
-  imports: [AlumnosComponent, CommonModule, FormsModule],
+  imports: [AlumnosComponent, CommonModule, FormsModule, NotificationcComponent],
   templateUrl: './profesores.component.html',
   styleUrl: './profesores.component.css'
 })
@@ -20,9 +21,12 @@ export class ProfesoresComponent implements OnInit {
     dni: '',
     especialidad: '',
     telefono: '',
-    cursoDto: { id: 0, nombre: '', descripcion: '', duracion: '' } // Inicialización de cursoDto
+    usuarioId: null,
+    usuarioDto: null
   };
-  showForm: boolean = false;
+  modalVisible: boolean = false;
+  editando: boolean = false;
+  profesorSeleccionado: Profesor | null = null;
 
   constructor(private profesoresService: ProfesoresService) { }
 
@@ -31,25 +35,54 @@ export class ProfesoresComponent implements OnInit {
   }
 
   obtenerProfesores(): void {
-    this.profesoresService.obtenerProfesores()
-      .subscribe(profesores => this.profesores = profesores);
+    this.profesoresService.obtenerProfesores().subscribe((data: Profesor[]) => {
+      this.profesores = data;
+    });
   }
 
   crearProfesor(): void {
-    this.profesoresService.crearProfesor(this.nuevoProfesor)
-      .subscribe(() => {
+    this.profesoresService.crearProfesor(this.nuevoProfesor).subscribe((profesor: Profesor) => {
+      this.profesores.push(profesor);
+      this.cerrarModal();
+    });
+  }
+
+  actualizarProfesor(): void {
+    if (this.profesorSeleccionado) {
+      this.profesoresService.actualizarProfesor(this.profesorSeleccionado.id, this.nuevoProfesor).subscribe(() => {
         this.obtenerProfesores();
-        //this.nuevoProfesor = { id: 0, nombre: '', dni: '', especialidad: '', telefono: '' };
-        this.showForm = false;
+        this.cerrarModal();
       });
+    }
   }
 
-  cancelarCrear(): void {
-    //this.nuevoProfesor = { id: 0, nombre: '', dni: '', especialidad: '', telefono: '' };
-    this.showForm = false;
+  eliminarProfesor(id: number): void {
+    this.profesoresService.eliminarProfesor(id).subscribe(() => {
+      this.obtenerProfesores();
+    });
   }
 
-  mostrarFormulario(): void {
-    this.showForm = true;
+  abrirModal(editando: boolean = false, profesor?: Profesor): void {
+    this.editando = editando;
+    if (editando && profesor) {
+      this.profesorSeleccionado = profesor;
+      this.nuevoProfesor = { ...profesor };
+    } else {
+      this.nuevoProfesor = {
+        id: 0,
+        nombre: '',
+        dni: '',
+        especialidad: '',
+        telefono: '',
+        usuarioId: null,
+        usuarioDto: null
+      };
+    }
+    this.modalVisible = true;
+  }
+
+  cerrarModal(): void {
+    this.modalVisible = false;
+    this.profesorSeleccionado = null;
   }
 }

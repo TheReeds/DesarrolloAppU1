@@ -142,6 +142,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
                   </svg>
                   Notas</a>
+                  <a routerLink="/asistencias" routerLinkActive="active" class="block px-4 py-3 text-sm font-medium hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
+                      stroke="currentColor" aria-hidden="true" class="w-5 h-3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                    </svg>
+                    Asistencias</a>
             </nav>
           </div>
 
@@ -173,15 +179,43 @@
   </div>
 
   <!-- Contenido del Dashboard -->
-  <div class="flex-1 p-4 overflow-auto bg-cover bg-center" style="background-image: url('https://i.redd.it/5mqp7trvxov51.jpg');">
-    <button (click)="toggleMenu()" class="fixed top-4 left-4 bg-gray-800 text-white p-2 rounded-full focus:outline-none">
-      <svg [ngClass]="{'transform rotate-180': isMenuOpen}" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 12h18M3 6h18M3 18h18"></path>
-      </svg>
-    </button>
-    <div class="content-container max-h-screen overflow-y-auto p-4 bg-white rounded-lg shadow-md">
+
+  <div class="flex flex-col flex-1 overflow-hidden" >
+    <!-- Header -->
+    <header class="bg-white shadow p-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <button (click)="goBack()" class="mr-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <nav aria-label="breadcrumb">
+          <ol class="flex items-center space-x-2 text-gray-500">
+            <li>
+              <a routerLink="/inicio" class="hover:text-gray-700">Inicio</a>
+            </li>
+            <li>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </li>
+            <li *ngIf="currentRoute !== 'inicio'">
+              <span>{{ currentRoute }}</span>
+            </li>
+          </ol>
+        </nav>
+      </div>
+      <button (click)="toggleMenu()" class="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 overflow-y-auto p-4">
       <ng-content select="[navbar-content]"></ng-content>
-    </div>
+    </main>
   </div>
 
 </div>

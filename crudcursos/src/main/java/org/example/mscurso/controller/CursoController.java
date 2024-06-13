@@ -31,7 +31,12 @@ public class CursoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> update(@RequestBody Curso curso) {
+    public ResponseEntity<Curso> update(@PathVariable Integer id, @RequestBody Curso curso) {
+        Curso existingCurso = cursoService.buscarPorId(id);
+        if (existingCurso == null) {
+            return ResponseEntity.notFound().build();
+        }
+        curso.setId(id);
         return ResponseEntity.ok(cursoService.editar(curso));
     }
 

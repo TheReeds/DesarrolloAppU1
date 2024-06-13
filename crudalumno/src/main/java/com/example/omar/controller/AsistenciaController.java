@@ -1,5 +1,6 @@
 package com.example.omar.controller;
 
+import com.example.omar.dto.AsistenciaDto;
 import com.example.omar.entity.Asistencia;
 import com.example.omar.service.AsistenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ public class AsistenciaController {
         return ResponseEntity.ok(nuevaAsistencia);
     }
 
+    @PostMapping("/bulk")
+    public ResponseEntity<List<Asistencia>> registrarVariasAsistencias(@RequestBody List<AsistenciaDto> asistencias) {
+        List<Asistencia> nuevasAsistencias = asistenciaService.registrarVariasAsistencias(asistencias);
+        return ResponseEntity.ok(nuevasAsistencias);
+    }
+
     @GetMapping("/alumno/{alumnoId}")
     public ResponseEntity<List<Asistencia>> obtenerAsistenciasPorAlumnoId(@PathVariable Integer alumnoId) {
         List<Asistencia> asistencias = asistenciaService.obtenerAsistenciasPorAlumnoId(alumnoId);
@@ -38,4 +45,5 @@ public class AsistenciaController {
         List<Asistencia> asistencias = asistenciaService.obtenerTodasLasAsistencias();
         return ResponseEntity.ok(asistencias);
     }
+
 }

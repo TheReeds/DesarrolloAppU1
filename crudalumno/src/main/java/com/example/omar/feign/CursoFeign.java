@@ -12,5 +12,5 @@ import java.util.List;
 public interface CursoFeign {
 
     @GetMapping("/{id}")
-    CursoDto getCursoById(@PathVariable("id") Integer id);
+    ResponseEntity<CursoDto> getCursoById(@PathVariable("id") Integer id);
 }

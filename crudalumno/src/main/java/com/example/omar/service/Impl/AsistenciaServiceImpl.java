@@ -21,8 +21,6 @@ public class AsistenciaServiceImpl implements AsistenciaService {
 
     @Autowired
     private CursoFeign cursoFeign;
-    @Autowired
-    private AlumnoRepository alumnoRepository;
 
     @Override
     public Asistencia registrarAsistencia(Asistencia asistencia) {
@@ -33,7 +31,7 @@ public class AsistenciaServiceImpl implements AsistenciaService {
     public List<Asistencia> registrarVariasAsistencias(List<AsistenciaDto> asistencias) {
         List<Asistencia> entidadesAsistencia = asistencias.stream().map(asistenciaDto -> {
             // Traer el curso usando Feign
-            CursoDto cursoDto = cursoFeign.getCursoById(asistenciaDto.getCursoId());
+            CursoDto cursoDto = cursoFeign.getCursoById(asistenciaDto.getCursoId()).getBody();
 
             // Mapear el DTO a la entidad
             Asistencia asistencia = new Asistencia();

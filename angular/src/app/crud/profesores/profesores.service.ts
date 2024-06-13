@@ -7,7 +7,6 @@ import { Profesor } from './profesores.model';
   providedIn: 'root'
 })
 export class ProfesoresService {
-
   private apiUrl = 'http://localhost:8085/profesores';
 
   constructor(private http: HttpClient) { }
@@ -16,7 +15,15 @@ export class ProfesoresService {
     return this.http.get<Profesor[]>(this.apiUrl);
   }
 
-  crearProfesor(profesor: Profesor): Observable<any> {
-    return this.http.post<any>(this.apiUrl, profesor);
+  crearProfesor(profesor: Profesor): Observable<Profesor> {
+    return this.http.post<Profesor>(this.apiUrl, profesor);
+  }
+
+  actualizarProfesor(id: number, profesor: Profesor): Observable<Profesor> {
+    return this.http.put<Profesor>(`${this.apiUrl}/${id}`, profesor);
+  }
+
+  eliminarProfesor(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

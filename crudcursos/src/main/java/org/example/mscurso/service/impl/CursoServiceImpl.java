@@ -43,6 +43,7 @@ public class CursoServiceImpl implements CursoService {
         if (curso == null){
             throw new RuntimeException("El curso existe");
         }else{
+
         return cursoRepository.save(curso);}
     }
 

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SidebarService } from './sidebar.service';
 import { AuthService } from '../auth.service';
 @Component({
@@ -21,7 +21,24 @@ export class AlumnosComponent {
   isLoading = false; // Nuevo estado de carga
   errorMessage: string | null = null;
 
-  constructor (private router: Router, private sidebarService: SidebarService, private authService: AuthService){}
+  currentRoute = 'Inicio';
+
+  constructor (private router: Router, private sidebarService: SidebarService, private authService: AuthService){
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateCurrentRoute();
+      }
+    });
+  }
+  goBack() {
+    this.router.navigate(['../']);
+  }
+
+  updateCurrentRoute() {
+    const url = this.router.url;
+    const urlSegments = url.split('/');
+    this.currentRoute = urlSegments[urlSegments.length - 1] || 'Inicio';
+  }
 
   ngOnInit() {
     this.loadSidebarState();
@@ -97,4 +114,5 @@ export class AlumnosComponent {
       }
     });
   }
+
 }
