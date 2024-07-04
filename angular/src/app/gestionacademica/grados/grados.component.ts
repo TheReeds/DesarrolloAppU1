@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { GradosService } from './grados.service';
 import { AlumnosComponent } from '../../alumnos/alumnos.component';
+import { WebSocketService } from '../../web-socket.service';
 
 @Component({
   selector: 'app-grados',
@@ -24,10 +25,20 @@ export class GradosComponent implements OnInit {
     nivel: ''
   };
 
-  constructor(private gradoService: GradosService) {}
+  constructor(private gradoService: GradosService, private webSocketService: WebSocketService) {}
 
   ngOnInit() {
     this.loadGrados();
+    // Suscribirse a los mensajes del WebSocket
+    this.webSocketService.connect().subscribe(
+      (message) => {
+        console.log('Mensaje recibido:', message);
+        this.handleWebSocketMessage(message);
+      },
+      (error) => {
+        console.error('Error en el WebSocket:', error);
+      }
+    );
   }
 
   loadGrados() {
@@ -99,5 +110,13 @@ export class GradosComponent implements OnInit {
 
   editGrado(grado: any) {
     this.showModal(true, grado);
+  }
+  handleWebSocketMessage(message: any) {
+    // Aquí puedes manejar los mensajes recibidos del WebSocket
+    // Por ejemplo, podrías recargar la lista de grados o mostrar una notificación
+    this.loadGrados(); // Recargar la lista de grados en este caso
+    if (this.notification) {
+      this.notification.show(`Mensaje WebSocket: ${message}`);
+    }
   }
 }

@@ -65,3 +65,7 @@ spring:
             - Path=/auth/**, /usuarios/**
           filters:
             - AuthFilter
+        - id: ms-socket-service
+          uri: lb://ms-socket-service
+          predicates:
+            - Path=/ws/**
