@@ -63,6 +63,8 @@ spring:
           uri: lb://ms-userjwt-service
           predicates:
             - Path=/auth/**, /usuarios/**
+          filters:
+            - AuthFilter
         - id: ms-socket-service
           uri: lb://ms-socket-service
           predicates:
