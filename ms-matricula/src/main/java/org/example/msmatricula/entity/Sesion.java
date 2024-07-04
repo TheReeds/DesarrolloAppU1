@@ -9,31 +9,27 @@ import java.util.List;
 @Entity
 @Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Aula {
+public class Sesion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String nombre;
 
-    private Integer gradoId;
+    private String titulo;
 
-    @JoinColumn(name = "curso_id")
-    private Integer cursoId;
+    private String descripcion;
 
-    @JoinColumn(name = "profesor_id")
-    private Integer profesorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aula_id")
+    private Aula aula;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "aula_id")
-    private List<AulaAlumnos> alumnos;
+    @JoinColumn(name = "sesion_id")
+    private List<Tarea> tareas;
+    public Sesion() {}
 
-
-    public Aula() {}
-
-    public Aula(Integer id) {
+    public Sesion(Integer id) {
         this.id = id;
     }
-
 }
-

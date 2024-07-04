@@ -56,7 +56,7 @@ spring:
         - id: ms-matricula-service
           uri: lb://ms-matricula-service
           predicates:
-            - Path=/matriculas/**, /aulas/**
+            - Path=/matriculas/**, /aulas/**, /sesiones/**, /tareas/**, /archivos/**
           filters:
             - AuthFilter
         - id: ms-userjwt-service

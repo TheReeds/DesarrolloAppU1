@@ -8,7 +8,7 @@ export class WebSocketService {
   private socket: WebSocket;
 
   constructor() {
-    this.socket = new WebSocket('ws://localhost:8085');
+    this.socket = new WebSocket('ws://localhost:8085/ws');
   }
 
   public connect(): Observable<any> {
